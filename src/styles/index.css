@@ -1,0 +1,120 @@
+/* index.css - Tailwind + custom components + fixes */
+
+/* Imports (fonts + FA) */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+ 
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -----------------------------
+   Global variables & small fixes
+   ----------------------------- */
+:root {
+  --header-h: 80px; /* adjust if header height differs */
+}
+
+.light-navy{
+  background-color: #2d4f7c;
+}
+
+/* Prevent horizontal scroll unexpectedly */
+html, body {
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Optional debug outline (comment out in production)
+* { outline: 1px solid rgba(255,0,0,0.03); }
+*/
+
+/* -----------------------------
+   Core: safe hero (accounts for fixed header)
+   ----------------------------- */
+.hero {
+  /* fill remaining viewport under fixed header (prevents double-height) */
+  min-height: calc(100vh - var(--header-h));
+  height: auto; /* avoid forcing exact 100vh which may produce scroll */
+  display: flex;
+  align-items: center;
+  text-align: center;
+  overflow: hidden; /* prevents small translate/animation overflow causing scrollbar */
+  background-position: center;
+  background-size: cover;
+}
+
+/* a small helper to center hero content */
+.hero-content {
+  @apply max-w-4xl mx-auto;
+}
+
+/* -----------------------------
+   Tailwind components (your @layer)
+   ----------------------------- */
+@layer components {
+  .btn {
+    @apply inline-block px-8 py-3 rounded text-base font-semibold transition-all duration-300 border-none cursor-pointer font-montserrat;
+  }
+
+  .btn-primary {
+    @apply bg-sunrise-gold text-navy-blue hover:bg-warm-orange hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent text-white border-2 border-white hover:bg-white hover:text-navy-blue;
+  }
+
+  .section-dark {
+    @apply bg-navy-blue text-white;
+  }
+
+  .section-light {
+    @apply bg-light-silver;
+  }
+
+  .page-section {
+    @apply hidden;
+  }
+
+  .page-section.active {
+    @apply block;
+  }
+
+  .stat-card {
+    @apply opacity-0 translate-y-5 transition-all duration-500;
+  }
+
+  .stat-card.animated {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+/* -----------------------------
+   Small custom utilities used in your HTML (optional)
+   ----------------------------- */
+/* hero headline/font sizes fallback if you need them outside of tailwind */
+.h1-hero {
+  font-family: "Playfair Display", serif;
+  font-size: 3.5rem;
+}
+
+/* testimonial card top border helper, white card without background */
+.testimonial-card-clean {
+  background: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  border-top: 6px solid var(--sunrise-gold);
+}
+
+/* ensure images don't cause overflow */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.pt-header {
+  padding-top: 8rem; /* Adjust this value based on your header height */
+}
