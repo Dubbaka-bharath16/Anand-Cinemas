@@ -34,7 +34,7 @@ const Header = () => {
             <Link to="/" className=" hover:opacity-90 transition-opacity duration-300">
              
               <div>
-                <h2 className="text-xl font-bold"><span className='text-amber-500'>ANAND</span> INFRA</h2>
+                <h2 className="lg:text-xl sm:text-md font-bold"><span className='text-amber-500'>ANAND</span> CINEMAZ</h2>
                 <p className="text-gray-500 text-[10px] italic -mt-0.5">"Dharmo Rakshati Rakshitah"</p>
               </div>
             </Link>
