@@ -161,7 +161,7 @@ export default function HeroCarouselWithImgs() {
   return (
     
     <section
-      className="relative h-[80vh] sm:h-[90vh] flex items-center justify-center overflow-hidden"
+      className="relative h-[70vh] sm:h-[80vh] flex items-center justify-center overflow-hidden"
       onMouseEnter={() => (hoveredRef.current = true)}
       onMouseLeave={() => (hoveredRef.current = false)}
       aria-roledescription="carousel"

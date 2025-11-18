@@ -118,3 +118,11 @@ img {
 .pt-header {
   padding-top: 8rem; /* Adjust this value based on your header height */
 }
+
+
+@media (max-width:768px){
+  .container{
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+  }
+}

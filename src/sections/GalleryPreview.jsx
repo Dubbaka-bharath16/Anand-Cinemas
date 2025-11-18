@@ -149,38 +149,7 @@ const GalleryPreview = () => {
         </div>
       </section>
 
-      {/* New: Production Values Section */}
-      {/* <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold text-navy-blue mb-8 font-playfair">Uncompromising Production Values</h2>
-            <p className="text-lg text-gray-600 mb-12 leading-relaxed">
-              From pre-production to final delivery, we maintain the highest standards of quality and creativity, 
-              ensuring every project reflects our commitment to cinematic excellence.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-sunrise-gold rounded-full flex items-center justify-center flex-shrink-0">
-                  <i className="fas fa-star text-white"></i>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-navy-blue mb-2 font-montserrat">Quality First</h3>
-                  <p className="text-gray-600">Every aspect of production meets our rigorous quality standards.</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-sunrise-gold rounded-full flex items-center justify-center flex-shrink-0">
-                  <i className="fas fa-users text-white"></i>
-                </div>
-                <div>
-                  <h3 className="text-xl font-bold text-navy-blue mb-2 font-montserrat">Collaborative Spirit</h3>
-                  <p className="text-gray-600">We believe great films are born from teamwork and shared vision.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
+      
     </>
   )
 }

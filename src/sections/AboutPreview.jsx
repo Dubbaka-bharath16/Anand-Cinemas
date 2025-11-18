@@ -50,7 +50,7 @@ const AboutPreview = () => {
           ))}
         </div>
         <div className="text-center mt-12">
-           <Link to="/films" style={{textDecoration:"none"}}>
+           <Link to="/projects" style={{textDecoration:"none"}}>
           <button className="bg-amber-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-amber-600 transition-colors">
             View All Projects
           </button></Link>
