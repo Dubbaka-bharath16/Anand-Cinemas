@@ -13,7 +13,7 @@
    Global variables & small fixes
    ----------------------------- */
 :root {
-  --header-h: 80px; /* adjust if header height differs */
+  --header-h: 76px; /* adjust if header height differs */
 }
 
 .light-navy{

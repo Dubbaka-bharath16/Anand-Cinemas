@@ -8,7 +8,7 @@ const Header = () => {
   const isActive = (path) => location.pathname === path
  
   return (
-    <header className="bg-white text-navy-blue sticky top-0 z-50 shadow-lg">  
+    <header className="bg-white text-navy-blue fixed w-full top-0 z-50 shadow-lg">  
       <div className="container mx-auto px-4 py-2">
         <div className="flex justify-between items-center">
           {/* Logo */}
@@ -34,7 +34,7 @@ const Header = () => {
             <Link to="/" className=" hover:opacity-90 transition-opacity duration-300">
              
               <div>
-                <span className="sm:text-md lg:text-lg font-bold"><span className='text-amber-500'>ANAND</span> CINEMAZ</span>
+                <h2 className="text-xl font-bold"><span className='text-amber-500'>ANAND</span> INFRA</h2>
                 <p className="text-gray-500 text-[10px] italic -mt-0.5">"Dharmo Rakshati Rakshitah"</p>
               </div>
             </Link>
@@ -160,4 +160,3 @@ const Header = () => {
 }
  
 export default Header
- 
