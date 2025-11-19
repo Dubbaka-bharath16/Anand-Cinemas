@@ -75,7 +75,7 @@ const TestimonialsClassic = () => {
   return (
     <section className="py-16 bg-transparent">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl  font-bold text-center text-[#0b2340] mb-10">
+        <h2 className="text-3xl md:text-4xl  font-bold text-blue-800 text-center text-[#0b2340] mb-10">
           What Our Clients Say
         </h2>
 

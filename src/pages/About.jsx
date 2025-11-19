@@ -219,7 +219,7 @@ const About = () => {
       <section className="py-20 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-800 mb-4">Our Creative Approach</h2>
+            <h2 className="text-3xl font-bold  text-blue-800  mb-4">Our Creative Approach</h2>
             <p className="text-slate-600 max-w-2xl mx-auto">
               The principles that guide our storytelling and filmmaking process
             </p>
@@ -245,7 +245,7 @@ const About = () => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 md:mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold text-slate-800 mb-4">Our Studio Principles</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-blue-800 mb-4">Our Studio Principles</h2>
             <p className="text-slate-600 max-w-2xl mx-auto text-base md:text-lg">
               The foundational values that shape every project and guide our creative decisions
             </p>
@@ -286,7 +286,7 @@ const About = () => {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 bg-slate-900 text-white">
+      <section className="py-20 bg-blue-800 text-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="text-center md:text-left">
@@ -345,7 +345,7 @@ const About = () => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-800 mb-4">Creative Collaborations</h2>
+            <h2 className="text-3xl font-bold text-blue-800 mb-4">Creative Collaborations</h2>
             <p className="text-slate-600 max-w-2xl mx-auto text-lg">
               Partner with us to bring extraordinary stories to life
             </p>
@@ -385,7 +385,7 @@ const About = () => {
             <div
               className="absolute inset-0 bg-cover bg-center"
               style={{
-                backgroundImage: 'url("https://images.unsplash.com/photo-1489599809505-f2d4cac355b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80")'
+                backgroundImage: 'url("https://cdn.pixabay.com/photo/2017/04/15/23/57/film-2233656_640.jpg")'
               }}
             ></div>
 
@@ -420,7 +420,7 @@ const About = () => {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-800 mb-4">Creative Leadership</h2>
+            <h2 className="text-3xl font-bold text-blue-800 mb-4">Creative Leadership</h2>
             <p className="text-slate-600 max-w-2xl mx-auto">
               The visionaries behind our studio's creative direction and success
             </p>

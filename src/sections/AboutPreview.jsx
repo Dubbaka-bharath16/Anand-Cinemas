@@ -5,7 +5,7 @@ const AboutPreview = () => {
   return (
     <section className="section-light py-20">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 relative">Featured Films</h2>
+        <h2 className="text-4xl font-bold text-blue-800 text-center mb-12 relative">Featured Films</h2>
         <div className="films-grid grid grid-cols-1 md:grid-cols-3 gap-8">
           {[
             {
@@ -51,7 +51,7 @@ const AboutPreview = () => {
         </div>
         <div className="text-center mt-12">
            <Link to="/projects" style={{textDecoration:"none"}}>
-          <button className="bg-amber-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-amber-600 transition-colors">
+          <button className="bg-cyan-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-amber-600 transition-colors">
             View All Projects
           </button></Link>
         </div>

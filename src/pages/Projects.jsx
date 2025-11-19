@@ -76,7 +76,12 @@ const Films = () => {
     <>
       <section className="py-20 pt-header">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 relative">Our Films</h2>
+
+          {/* UPDATED HEADER COLOR */}
+          <h2 className="text-4xl font-bold text-center mb-12 relative text-blue-800 bg-clip-text ">
+            Our Projects
+          </h2>
+
           <p className="text-center max-w-4xl mx-auto mb-12 text-lg">
             A collection of our journeys into the human experience. Each film is a world we've built, a character we've lived with, and a message we are proud to share.
           </p>
@@ -98,12 +103,15 @@ const Films = () => {
                     <span>{film.year}</span>
                   </div>
                   <p className="text-gray-700 mb-4">{film.description}</p>
+
+                  {/* UPDATED BUTTON COLOR */}
                   <button 
                     onClick={() => setSelectedFilm(film)}
-                    className="bg-amber-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-amber-600 transition-colors"
+                    className="bg-cyan-500 text-white px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition-all"
                   >
                     View Details →
                   </button>
+
                 </div>
               </div>
             ))}
@@ -152,10 +160,12 @@ const Films = () => {
               </div>
               
               <p className="text-gray-700 mb-6 leading-relaxed">{selectedFilm.details}</p>
-              
-              <button className="bg-amber-500 text-white px-8 py-3 rounded-lg font-semibold hover:bg-amber-600 transition-colors w-full">
+
+              {/* UPDATED BUTTON COLOR */}
+              <button className="bg-cyan-500 text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-all w-full">
                 Watch Trailer
               </button>
+
             </div>
           </div>
         </div>

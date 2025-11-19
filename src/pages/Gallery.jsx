@@ -15,7 +15,7 @@ const Gallery = () => {
   return (
    <section className="py-20 pt-header">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12 relative ">Gallery</h2>
+        <h2 className="text-4xl font-bold text-center  text-blue-800 mb-12 relative ">Gallery</h2>
         <p className="text-center max-w-4xl mx-auto mb-12 text-lg font-opensans">
           Behind the scenes moments, production stills, and events that capture the essence of our filmmaking journey.
         </p>

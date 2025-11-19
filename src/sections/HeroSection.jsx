@@ -1,231 +1,512 @@
-// import React, { useState, useEffect } from "react";
-
-// const slides = [
-//   {
-//     title: "Welcome to Anand Cinemaz",
-//     subtitle:
-//       "Where stories come to life through the powerful medium of cinema, and creative visions find their perfect expression.",
-//     image:
-//       "https://images.unsplash.com/photo-1603297631731-d1f97f1fa3a3?auto=format&fit=crop&w=1950&q=80", // clapperboard + camera
-//   },
-//   {
-//     title: "Crafting Stories That Matter",
-//     subtitle:
-//       "We believe in producing films that inspire, entertain, and spark powerful emotions.",
-//     image:
-//       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1950&q=80", // film reel + movie camera
-//   },
-//   {
-//     title: "A Journey of Creativity",
-//     subtitle:
-//       "Join us as we shape ideas into unforgettable cinematic experiences.",
-//     image:
-//       "https://images.unsplash.com/photo-1588099768340-3ed49832e286?auto=format&fit=crop&w=1950&q=80", // film clapper + script
-//   },
-// ];
-
-// const HeroCarousel = () => {
-//   const [index, setIndex] = useState(0);
-
-//   useEffect(() => {
-//     const timer = setInterval(() => {
-//       setIndex((prev) => (prev + 1) % slides.length);
-//     }, 4000);
-//     return () => clearInterval(timer);
-//   }, []);
-
-//   return (
-//     <section className="relative h-[80vh] sm:h-[90vh] bg-[#0c1627] flex items-center justify-center overflow-hidden pt-16">
-
-//       {/* Background Images */}
-//       <div className="absolute inset-0 -z-10">
-//         {slides.map((s, i) => (
-//           <div
-//             key={i}
-//             className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
-//               i === index ? "opacity-100" : "opacity-0"
-//             }`}
-//             style={{ backgroundImage: `url('${s.image}')` }}
-//           ></div>
-//         ))}
-
-//         {/* Dark Overlay */}
-//         <div className="absolute inset-0 bg-black/70"></div>
-//       </div>
-
-//       {/* Content */}
-//       <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 w-full relative z-10">
-//         <div key={index} className="transition-all duration-700 ease-out w-full">
-
-//           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-5xl font-bold text-white leading-tight sm:leading-snug px-2">
-//             {slides[index].title.split(" ").slice(0, 2).join(" ")}{" "}
-//             <span className="text-[#f5b000] block sm:inline">
-//               {slides[index].title.split(" ").slice(2).join(" ")}
-//             </span>
-//           </h1>
-
-//           <p className="text-base sm:text-lg md:text-xl text-gray-300 mt-4 sm:mt-6 leading-relaxed px-2 sm:px-4">
-//             {slides[index].subtitle}
-//           </p>
-
-//           <div className="mt-6 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 px-4">
-//             <button className="px-4 sm:px-6 md:px-8 py-2 sm:py-3 bg-[#e79a00] text-white font-semibold rounded-md shadow-md hover:bg-[#ffb200] transition text-sm sm:text-base w-full sm:w-auto">
-//               Explore Our Work
-//             </button>
-
-//             <button className="px-4 sm:px-6 md:px-8 py-2 sm:py-3 border border-gray-400 text-white font-semibold rounded-md hover:bg-white hover:text-black transition text-sm sm:text-base w-full sm:w-auto">
-//               Join Our Creative Family
-//             </button>
-//           </div>
-//         </div>
-
-//         {/* Dots */}
-//         <div className="flex justify-center gap-2 sm:gap-3 mt-6 sm:mt-10">
-//           {slides.map((_, i) => (
-//             <button
-//               key={i}
-//               onClick={() => setIndex(i)}
-//               className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-//                 i === index ? "bg-[#f5b000] w-4 sm:w-6" : "bg-gray-500"
-//               }`}
-//             ></button>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default HeroCarousel;
-import React, { useState, useEffect, useRef } from "react";
+// HeroNestedCarousel.jsx
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-const slides = [
+/* ---------------------------
+   Outer slides (same as before)
+   --------------------------- */
+const outerSlides = [
   {
     title: "Welcome to Anand Cinemaz",
     subtitle: "Where stories come to life through the powerful medium of cinema.",
-    // external unsplash image (clapperboard + camera)
     image:
-      "https://media.istockphoto.com/id/892375260/photo/man-hands-holding-movie-clapper.jpg?s=612x612&w=0&k=20&c=oGGuOr5ROP0daKAaHxk_s4-4y8wbZQeC0EtE3h-sjeU=",
-    // local fallback filename (put this file in public/images/ if needed)
-    local: "/images/movie1.jpg",
+      "https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2074&q=80",
   },
   {
     title: "Crafting Stories That Matter",
     subtitle: "We produce films that inspire, entertain and remain memorable.",
     image:
-      "data:image/jpeg;base64,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",
-    local: "/images/movie2.jpg",
+      "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
   },
   {
     title: "A Journey of Creativity",
     subtitle: "Shaping ideas into unforgettable cinematic experiences.",
     image:
-      "https://images.unsplash.com/photo-1543536448-d209d2d13a1c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG1vdmllfGVufDB8fDB8fHww",
-    local: "/images/movie3.jpg",
+      "https://cdn.pixabay.com/photo/2016/09/16/00/16/movie-1673021_640.jpg",
   },
 ];
 
-const AUTO_PLAY_MS = 4000;
+/* ---------------------------
+   Inner films (your films list)
+   --------------------------- */
+const filmsData = [
+  {
+    image:
+      "https://images.unsplash.com/photo-1485846234645-a62644f84728?ixlib=rb-4.0.3&auto=format&fit=crop&w=1159&q=80",
+    title: "Echoes of Silence",
+    genre: "Drama",
+    year: "2023",
+    description:
+      "A reclusive musician's life is turned upside down when he forms an unlikely bond with a spirited young girl, forcing him to confront the noise of the world he left behind.",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+    title: "Project Uprising",
+    genre: "Thriller",
+    year: "Coming 2024",
+    description:
+      "Some truths are too dangerous to stay buried. A journalist uncovers a conspiracy that threatens to upend society as we know it.",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1225&q=80",
+    title: "Shades of Truth",
+    genre: "Mystery",
+    year: "2022",
+    description:
+      "In a small town where everyone has something to hide, a detective must unravel a web of lies to solve a mysterious disappearance.",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+    title: "The Last Light",
+    genre: "Drama",
+    year: "2021",
+    description:
+      "A family's struggle to preserve their cultural heritage in the face of modernization and changing values.",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?ixlib=rb-4.0.3&auto=format&fit=crop&w=1176&q=80",
+    title: "Urban Rhythms",
+    genre: "Musical",
+    year: "2020",
+    description:
+      "Exploring the interconnected lives of city dwellers through the universal language of music and dance.",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&auto=format&fit=crop&w=1084&q=80",
+    title: "Silent Echoes",
+    genre: "Documentary",
+    year: "2019",
+    description:
+      "A poignant look at the lives of hearing-impaired artists and their extraordinary visual expressions.",
+  },
+];
 
-export default function HeroCarouselWithImgs() {
-  const [index, setIndex] = useState(0);
-  const timerRef = useRef(null);
-  const hoveredRef = useRef(false);
+/* ---------------------------
+   Config constants - slowed & smoothed
+   --------------------------- */
+/* ---------------------------
+   Config constants - 2 second timing
+   --------------------------- */
+const OUTER_AUTOPLAY_MS = 2000; // 2 seconds
+const OUTER_TRANS_MS = 700; // Smooth transition
+
+const INNER_AUTOPLAY_MS = 2000; // 2 seconds
+const INNER_TRANS_MS = 700; // Smooth transition
+/* ---------------------------
+   useInterval helper
+   --------------------------- */
+function useInterval(callback, delay, enabled = true) {
+  const savedRef = useRef(callback);
+  useEffect(() => (savedRef.current = callback), [callback]);
+  useEffect(() => {
+    if (!enabled) return;
+    const id = setInterval(() => savedRef.current(), delay);
+    return () => clearInterval(id);
+  }, [delay, enabled]);
+}
+
+/* ---------------------------
+   InnerCarousel - improved styling & timing
+   --------------------------- */
+const InnerCarousel = ({ items = filmsData }) => {
+  const [startIndex, setStartIndex] = useState(0);
+  const trackRef = useRef(null);
+  const containerRef = useRef(null);
+  const hovering = useRef(false);
+  const dragging = useRef(false);
+  const dragInfo = useRef({ startX: 0, delta: 0 });
+
+  // get perView responsive
+  const getPerView = useCallback(() => {
+    if (typeof window === "undefined") return 1;
+    const w = window.innerWidth;
+    if (w >= 1200) return 3;
+    if (w >= 900) return 2;
+    return 1;
+  }, []);
+  const perView = useRef(getPerView());
 
   useEffect(() => {
-    startAuto();
-    return stopAuto;
+    const onResize = () => {
+      perView.current = getPerView();
+      // clamp startIndex so we don't overscroll
+      setStartIndex((prev) => Math.min(prev, Math.max(0, items.length - perView.current)));
+      // force track layout update
+      updateTrackPosition(startIndex, false);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getPerView, items.length]);
+
+  // update track translate
+  const updateTrackPosition = (index, withTransition = true) => {
+    if (!trackRef.current) return;
+    const cardPercent = 100 / perView.current; // width of each visible card block
+    const translatePercent = -(index * cardPercent);
+    trackRef.current.style.transition = withTransition ? `transform ${INNER_TRANS_MS}ms cubic-bezier(.2,.9,.2,1)` : "none";
+    trackRef.current.style.transform = `translateX(${translatePercent}%)`;
+    trackRef.current.style.willChange = "transform";
+  };
+
+  // initial layout
+  useEffect(() => {
+    updateTrackPosition(startIndex, false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const startAuto = () => {
-    stopAuto();
-    timerRef.current = setInterval(() => {
-      if (!hoveredRef.current) setIndex((p) => (p + 1) % slides.length);
-    }, AUTO_PLAY_MS);
+  // autoplay (slower)
+  useInterval(
+    () => {
+      if (!hovering.current && !dragging.current) {
+        setStartIndex((prev) => {
+          const maxStart = Math.max(0, items.length - perView.current);
+          return prev >= maxStart ? 0 : prev + 1;
+        });
+      }
+    },
+    INNER_AUTOPLAY_MS,
+    true
+  );
+
+  // whenever startIndex changes, update track
+  useEffect(() => {
+    updateTrackPosition(startIndex, true);
+  }, [startIndex]);
+
+  // debounced controls to avoid rapid clicks
+  const lastActionRef = useRef(0);
+  const actionDebounce = 300;
+  const safePrev = () => {
+    const now = Date.now();
+    if (now - lastActionRef.current < actionDebounce) return;
+    lastActionRef.current = now;
+    setStartIndex((p) => Math.max(0, p - 1));
+  };
+  const safeNext = () => {
+    const now = Date.now();
+    if (now - lastActionRef.current < actionDebounce) return;
+    lastActionRef.current = now;
+    setStartIndex((p) => {
+      const maxStart = Math.max(0, items.length - perView.current);
+      return p >= maxStart ? 0 : p + 1;
+    });
   };
 
-  const stopAuto = () => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-  };
+  // pointer (touch/mouse) handlers for smooth dragging
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const track = trackRef.current;
+    if (!track) return;
 
-  // Try to detect loading errors and switch to local fallback
-  const handleImgError = (e, slide) => {
-    // If you placed local images in public/images/, this will switch to them
-    if (slide.local) e.currentTarget.src = slide.local;
-  };
+    const onDown = (e) => {
+      dragging.current = true;
+      hovering.current = true;
+      dragInfo.current.startX = e.touches ? e.touches[0].clientX : e.clientX;
+      dragInfo.current.delta = 0;
+      track.style.transition = "none";
+    };
+
+    const onMove = (e) => {
+      if (!dragging.current) return;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      dragInfo.current.delta = clientX - dragInfo.current.startX;
+      const deltaPercent = (dragInfo.current.delta / container.clientWidth) * (100 / perView.current);
+      const cardPercent = 100 / perView.current;
+      const base = -(startIndex * cardPercent);
+      track.style.transform = `translateX(calc(${base}% + ${deltaPercent}%))`;
+    };
+
+    const onUp = () => {
+      if (!dragging.current) return;
+      dragging.current = false;
+      hovering.current = false;
+      const threshold = 50; // px threshold
+      const delta = dragInfo.current.delta;
+      // restore transition
+      track.style.transition = `transform ${INNER_TRANS_MS}ms cubic-bezier(.2,.9,.2,1)`;
+      if (Math.abs(delta) > threshold) {
+        if (delta > 0) {
+          // user swiped right => prev
+          setStartIndex((p) => Math.max(0, p - 1));
+        } else {
+          setStartIndex((p) => {
+            const maxStart = Math.max(0, items.length - perView.current);
+            return p >= maxStart ? 0 : p + 1;
+          });
+        }
+      } else {
+        // snap back
+        updateTrackPosition(startIndex, true);
+      }
+      dragInfo.current.delta = 0;
+    };
+
+    container.addEventListener("touchstart", onDown, { passive: true });
+    container.addEventListener("touchmove", onMove, { passive: true });
+    container.addEventListener("touchend", onUp);
+    container.addEventListener("mousedown", onDown);
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+
+    return () => {
+      container.removeEventListener("touchstart", onDown);
+      container.removeEventListener("touchmove", onMove);
+      container.removeEventListener("touchend", onUp);
+      container.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
+  }, [startIndex, items.length]);
+
+  // card width math for inline style
+  const cardWidthPercent = 100 / perView.current; // percent relative to viewport
 
   return (
-    
-    <section
-      className="relative h-[90vh] sm:h-[80vh] flex items-center justify-center overflow-hidden"
-      onMouseEnter={() => (hoveredRef.current = true)}
-      onMouseLeave={() => (hoveredRef.current = false)}
-      aria-roledescription="carousel"
-    >
-      {/* Images as <img> elements stacked absolutely */}
-      <div className="absolute inset-0 -z-10">
-        {slides.map((s, i) => (
-          <img
-            key={i}
-            src={s.image}
-            onError={(e) => handleImgError(e, s)}
-            alt={s.title}
-            crossOrigin="anonymous"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ease-out ${
-              i === index ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
-          />
-        ))}
+    <div className="w-full">
+      <div
+        ref={containerRef}
+        className="relative overflow-hidden rounded-xl w-full"
+        onMouseEnter={() => (hovering.current = true)}
+        onMouseLeave={() => (hovering.current = false)}
+        aria-roledescription="carousel"
+      >
+        <div
+          ref={trackRef}
+          className="flex gap-6 items-stretch will-change-transform"
+          style={{
+            width: `${(items.length * cardWidthPercent)}%`,
+            transform: `translateX(-${startIndex * cardWidthPercent}%)`,
+          }}
+        >
+          {items.map((f, idx) => (
+            <div
+              key={idx}
+              className="flex-shrink-0 px-0"
+              style={{
+                width: `${cardWidthPercent}%`,
+                minWidth: `${cardWidthPercent}%`,
+              }}
+            >
+              <div className="bg-black/60 rounded-lg overflow-hidden shadow-lg transform transition-transform duration-500 ease-out hover:scale-[1.02]">
+                <img src={f.image} alt={f.title} className="w-full h-40 sm:h-44 object-cover" />
+                <div className="p-3">
+                  <h4 className="text-sm font-semibold text-white leading-tight">{f.title}</h4>
+                  <div className="text-xs text-gray-300">{f.genre} • {f.year}</div>
+                  <p className="text-xs text-gray-300 mt-2 line-clamp-2" style={{ maxHeight: "3.2rem" }}>{f.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
 
-        {/* Strong overlay */}
-        <div className="absolute inset-0 bg-black/80" />
+        {/* controls */}
+        <div className="absolute left-3 top-3 flex gap-2">
+          <button
+            onClick={safePrev}
+            className="bg-white/10 hover:bg-white/20 text-white rounded-full p-1.5 focus:outline-none focus:ring-2 focus:ring-white/30"
+            aria-label="Previous film"
+          >
+            ‹
+          </button>
+          <button
+            onClick={safeNext}
+            className="bg-white/10 hover:bg-white/20 text-white rounded-full p-1.5 focus:outline-none focus:ring-2 focus:ring-white/30"
+            aria-label="Next film"
+          >
+            ›
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ---------------------------
+   OuterCarouselHero - uses InnerCarousel inside mockup
+   --------------------------- */
+const HeroNestedCarousel = () => {
+  const [oIndex, setOIndex] = useState(0);
+  const oTrackRef = useRef(null);
+  const oHover = useRef(false);
+  const outerCount = outerSlides.length;
+
+  // autoplay outer
+  useInterval(
+    () => {
+      if (!oHover.current) {
+        setOIndex((prev) => (prev + 1) % outerCount);
+      }
+    },
+    OUTER_AUTOPLAY_MS,
+    true
+  );
+
+  // update outer track
+  useEffect(() => {
+    if (!oTrackRef.current) return;
+    oTrackRef.current.style.transition = `transform ${OUTER_TRANS_MS}ms cubic-bezier(.2,.9,.2,1)`;
+    oTrackRef.current.style.transform = `translateX(-${(oIndex * 100) / outerCount}%)`;
+  }, [oIndex, outerCount]);
+
+  // outer touch (kept simple)
+  useEffect(() => {
+    const el = oTrackRef.current;
+    if (!el) return;
+    let startX = 0;
+    let dragging = false;
+    let delta = 0;
+
+    const onDown = (e) => {
+      dragging = true;
+      startX = e.touches ? e.touches[0].clientX : e.clientX;
+      el.style.transition = "none";
+    };
+    const onMove = (e) => {
+      if (!dragging) return;
+      const cx = e.touches ? e.touches[0].clientX : e.clientX;
+      delta = cx - startX;
+      const percent = (delta / window.innerWidth) * 100;
+      el.style.transform = `translateX(calc(${-(oIndex * (100 / outerCount))}% + ${percent}%))`;
+    };
+    const onUp = () => {
+      dragging = false;
+      el.style.transition = `transform ${OUTER_TRANS_MS}ms cubic-bezier(.2,.9,.2,1)`;
+      if (Math.abs(delta) > 60) {
+        if (delta > 0) setOIndex((p) => Math.max(0, p - 1));
+        else setOIndex((p) => (p + 1) % outerCount);
+      } else {
+        el.style.transform = `translateX(-${(oIndex * 100) / outerCount}%)`;
+      }
+      delta = 0;
+    };
+
+    window.addEventListener("touchstart", onDown, { passive: true });
+    window.addEventListener("touchmove", onMove, { passive: true });
+    window.addEventListener("touchend", onUp);
+    window.addEventListener("mousedown", onDown);
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+
+    return () => {
+      window.removeEventListener("touchstart", onDown);
+      window.removeEventListener("touchmove", onMove);
+      window.removeEventListener("touchend", onUp);
+      window.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+    };
+  }, [oIndex, outerCount]);
+
+  return (
+    <section
+      className="relative w-full h-[90vh] sm:h-[100vh] overflow-hidden pt-16 bg-gradient-to-b from-slate-900 via-slate-900/95 to-black"
+      onMouseEnter={() => (oHover.current = true)}
+      onMouseLeave={() => (oHover.current = false)}
+    >
+      {/* outer background track */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div
+          ref={oTrackRef}
+          className="flex h-full will-change-transform"
+          style={{ width: `${outerCount * 100}%`, transform: `translateX(-${(oIndex * 100) / outerCount}%)` }}
+        >
+          {outerSlides.map((s, idx) => (
+            <div
+              key={idx}
+              className="w-full h-full flex-shrink-0 bg-center bg-cover"
+              style={{
+                backgroundImage: `linear-gradient(rgba(6,6,23,0.25), rgba(6,6,23,0.35)), url('${s.image}')`,
+              }}
+              aria-hidden
+            />
+          ))}
+        </div>
+
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-black/45 backdrop-blur-sm" />
+          <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/80 to-transparent" />
+        </div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 w-full px-4 sm:px-6 pt-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-3 mt-6">
-            {/* maintain the highlighted split */}
-            {slides[index].title.split(" ").slice(0, 2).join(" ")}{" "}
-            <span className="text-[#f5b000]">
-              {slides[index].title.split(" ").slice(2).join(" ")}
-            </span>
-          </h1>
+      {/* Content area */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 h-full flex items-center">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-6">
+            <div className="max-w-2xl">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight">
+                {outerSlides[oIndex].title.split(" ").slice(0, 2).join(" ")}{" "}
+                <span className="text-amber-400">{outerSlides[oIndex].title.split(" ").slice(2).join(" ")}</span>
+              </h1>
+              <p className="mt-4 text-lg text-gray-200 max-w-xl">{outerSlides[oIndex].subtitle}</p>
 
-          <p className="text-sm sm:text-base md:text-lg text-slate-300 max-w-3xl mx-auto mb-5">
-            {slides[index].subtitle}
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 justify-center items-center">
-            <Link to ='/projects'>
-            <button className="px-6 py-3 bg-[#e79a00] text-white font-semibold rounded-md shadow-md hover:bg-[#ffb200] transition text-sm sm:text-base w-full sm:w-auto">
-             Explore Our Work 
-            </button></Link>
-             <Link to='/contact'>
-            <button className="px-6 py-3 border border-gray-400 text-white font-semibold rounded-md hover:bg-white hover:text-black transition text-sm sm:text-base w-full sm:w-auto">
-              Join Our Creative Family
-            </button></Link>
+              <div className="mt-8 flex items-center gap-4">
+                <Link to="/projects">
+                  <button className="px-6 py-3 rounded-full bg-amber-500 text-black font-semibold hover:scale-105 transition">Explore Our Work</button>
+                </Link>
+                <Link to="/contact">
+                  <button className="px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/10 transition">Contact</button>
+                </Link>
+              </div>
+            </div>
           </div>
 
-          {/* Dots */}
-          <div className="flex justify-center gap-2 sm:gap-3 mt-5">
-            {slides.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setIndex(i)}
-                aria-label={`Go to slide ${i + 1}`}
-                className={`rounded-full transition-all duration-300 focus:outline-none ${
-                  i === index ? "bg-[#f5b000] w-6 h-3 rounded-full" : "bg-gray-500 w-3 h-3"
-                }`}
-              />
-            ))}
+          {/* Right side: mockup with inner carousel */}
+          <div className="lg:col-span-6 flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-lg">
+              <div className="bg-white/6 border border-white/8 rounded-3xl p-4 shadow-2xl backdrop-blur-md">
+                <div className="rounded-2xl overflow-hidden bg-gradient-to-b from-black/35 to-black/10">
+                  <div className="p-4">
+                    <InnerCarousel items={filmsData} />
+                  </div>
+                </div>
+
+                <div className="mt-3 px-4 mb-2 flex items-center justify-between text-xs text-slate-300">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-white/8 rounded-md flex items-center justify-center text-amber-300">★</div>
+                    <div>
+                      <div className="font-semibold text-white text-sm">Featured Films</div>
+                      <div className="text-xs text-slate-400">Curated picks • Weekly</div>
+                    </div>
+                  </div>
+                  <div className="text-slate-400">See more →</div>
+                </div>
+              </div>
+
+              <div className="mt-4 flex gap-3 justify-center lg:justify-end">
+                <a className="px-3 py-2 bg-white/6 rounded-full text-sm text-white hover:bg-white/10 transition">Watch Highlights</a>
+                <a className="px-3 py-2 bg-white/6 rounded-full text-sm text-white hover:bg-white/10 transition">View Schedule</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      {/* outer arrows */}
+      <div className="hidden lg:block">
+        <button
+          onClick={() => setOIndex((p) => (p - 1 + outerCount) % outerCount)}
+          className="absolute left-6 top-1/2 -translate-y-1/2 bg-black/30 text-white p-3 rounded-full"
+          aria-label="Prev slide"
+        >
+          ‹
+        </button>
+        <button
+          onClick={() => setOIndex((p) => (p + 1) % outerCount)}
+          className="absolute right-6 top-1/2 -translate-y-1/2 bg-black/30 text-white p-3 rounded-full"
+          aria-label="Next slide"
+        >
+          ›
+        </button>
+      </div>
     </section>
   );
-}
+};
+
+export default HeroNestedCarousel;

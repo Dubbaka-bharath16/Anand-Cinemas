@@ -95,7 +95,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative light-navy text-white py-24 md:py-28 lg:py-36">
+      <section className="relative bg-blue-400 text-white py-24 md:py-28 lg:py-36">
         <div className="absolute inset-0 bg-slate-900/80"></div>
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
@@ -216,7 +216,7 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-amber-500 hover:bg-amber-600 disabled:bg-amber-400 text-white font-semibold py-3 md:py-4 px-6 rounded-lg transition-colors duration-300 text-base md:text-lg flex items-center justify-center"
+                  className="w-full bg-blue-600 hover:bg-blue-800 disabled:bg-amber-400 text-white font-semibold py-3 md:py-4 px-6 rounded-lg transition-colors duration-300 text-base md:text-lg flex items-center justify-center"
                 >
                   {isSubmitting ? (
                     <>
@@ -263,8 +263,8 @@ const Contact = () => {
                 {contactInfo.map((item, index) => (
                   <div key={index} className="flex items-start space-x-3 md:space-x-4 p-4 md:p-6 bg-slate-50 rounded-lg md:rounded-xl border border-slate-200 hover:border-amber-300 transition-colors duration-300">
                     <div className="flex-shrink-0">
-                      <div className="w-10 h-10 md:w-12 md:h-12 bg-amber-100 rounded-lg md:rounded-xl flex items-center justify-center">
-                        <i className={`fas fa-${item.icon} text-amber-600 text-base md:text-lg`}></i>
+                      <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-600 rounded-lg md:rounded-xl flex items-center justify-center">
+                        <i className={`fas fa-${item.icon} text-white text-base md:text-lg`}></i>
                       </div>
                     </div>
                     <div className="flex-1 min-w-0">

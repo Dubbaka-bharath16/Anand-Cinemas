@@ -54,8 +54,8 @@ const SpotlightSection = () => {
       <section className="mission-section py-24 text-center">
         <div className="container mx-auto px-4">
           <div className="mission-content max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold mb-12 relative ">Our Mission</h2>
-            <p className="text-xl leading-relaxed font-opensans">
+            <h2 className="text-4xl font-bold text-blue-800 mb-12 relative">Our Mission</h2>
+            <p className="text-lg md:text-xl leading-relaxed font-opensans">
               Anand Cinemaz focuses on producing meaningful, impactful, and high-quality cinematic content. We aim to blend creativity with purpose—crafting films that entertain, inspire, and carry strong social messages. With a commitment to artistic integrity and modern storytelling, our production house aspires to create cinema that leaves a lasting impression on audiences across all backgrounds.
             </p>
           </div>

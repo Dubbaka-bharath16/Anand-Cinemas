@@ -14,7 +14,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center sm:mr-0">
             {/* Founder Logo - Rounded for both desktop and mobile */}
-            <div className="h-14 w-14 rounded-full shadow-lg overflow-hidden mr-3">
+            <div className="h-12 w-12 md:h-14 md:w-14 rounded-full shadow-lg overflow-hidden mr-3">
               <img
                 src="./images/CEO.png"
                 alt="Anand Infra CEO"
@@ -23,7 +23,7 @@ const Header = () => {
             </div>
            
             {/* Company Logo */}
-            <div className="h-13 w-10 overflow-hidden mr-3">
+            <div className="h-10 w-8 md:h-13 md:w-10 overflow-hidden mr-3">
               <img
                 src="./images/Logo.png"
                 alt="Anand Infra Logo"

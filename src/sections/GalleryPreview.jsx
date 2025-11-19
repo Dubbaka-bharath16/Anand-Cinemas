@@ -6,7 +6,7 @@ const GalleryPreview = () => {
       {/* Process Section */}
       <section className="section-light py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 relative ">Our Filmmaking Process</h2>
+          <h2 className="text-4xl font-bold text-blue-800 text-center mb-12 relative ">Our Film making Process</h2>
           <div className="process-steps flex flex-col lg:flex-row justify-between relative mt-12">
             <div className="absolute top-10 left-0 right-0 h-0.5 bg-gray-300 z-10 hidden lg:block"></div>
             {[
@@ -70,38 +70,60 @@ const GalleryPreview = () => {
       </section>
 
       {/* New: Creative Team Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16 relative ">Our Creative Team</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Visionary Directors",
-                description: "Talented filmmakers who bring unique perspectives and artistic vision to every project.",
-                icon: "fa-video"
-              },
-              {
-                name: "Story Architects",
-                description: "Creative writers who craft compelling narratives with depth, emotion, and social relevance.",
-                icon: "fa-pen-fancy"
-              },
-              {
-                name: "Technical Artists",
-                description: "Skilled cinematographers, editors, and sound designers who transform vision into reality.",
-                icon: "fa-cogs"
-              }
-            ].map((member, index) => (
-              <div key={index} className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 group">
-                <div className="w-16 h-16 bg-gradient-to-r from-sunrise-gold to-warm-orange rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <i className={`fas ${member.icon} text-2xl text-white`}></i>
-                </div>
-                <h3 className="text-2xl font-bold text-navy-blue mb-4 text-center font-montserrat">{member.name}</h3>
-                <p className="text-gray-600 text-center leading-relaxed">{member.description}</p>
-              </div>
-            ))}
+     <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+  <div className="container mx-auto px-4">
+    <h2 className="text-4xl font-bold text-center text-blue-800 mb-16 relative ">Our Creative Team</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {[
+        {
+          name: "Visionary Directors",
+          description: "Talented filmmakers who bring unique perspectives and artistic vision to every project, crafting cinematic masterpieces that resonate with audiences worldwide.",
+          icon: "fa-video"
+        },
+        {
+          name: "Story Architects",
+          description: "Creative writers who craft compelling narratives with depth, emotion, and social relevance, building worlds that captivate and inspire meaningful conversations.",
+          icon: "fa-pen-fancy"
+        },
+        {
+          name: "Technical Artists",
+          description: "Skilled cinematographers, editors, and sound designers who transform creative vision into stunning reality through cutting-edge technology and artistic expertise.",
+          icon: "fa-cogs"
+        }
+      ].map((member, index) => (
+        <div 
+          key={index} 
+          className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-300 group hover:-translate-y-2 relative overflow-hidden"
+        >
+          {/* Subtle border accent */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-navy-blue to-warm-orange"></div>
+          
+          {/* Icon container with enhanced styling */}
+          <div className="relative">
+            <div className="w-20 h-20 bg-gradient-to-br from-sunrise-gold to-warm-orange rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+              <i className={`fas ${member.icon} text-2xl text-white`}></i>
+            </div>
+            {/* Subtle background pattern */}
+            <div className="absolute -top-2 -right-2 w-8 h-8 bg-sunrise-gold/10 rounded-full"></div>
+            <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-warm-orange/10 rounded-full"></div>
           </div>
+
+          {/* Content */}
+          <h3 className="text-2xl font-bold text-navy-blue mb-4 text-center font-montserrat group-hover:text-sunrise-gold transition-colors duration-300">
+            {member.name}
+          </h3>
+          <p className="text-gray-600 text-center leading-relaxed font-opensans">
+            {member.description}
+          </p>
+
+          {/* Hover effect border */}
+          <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-sunrise-gold/20 transition-all duration-300 pointer-events-none"></div>
         </div>
-      </section>
+      ))}
+    </div>
+
+  </div>
+</section>
 
       {/* Impact Section with New Background */}
       <section className="relative py-24 bg-fixed bg-cover bg-center" 
