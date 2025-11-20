@@ -224,47 +224,56 @@ const Films = () => {
       </section>
 
       {/* CTA SECTION - SIMPLE SOLID COLOR */}
-      <section className="py-16 bg-blue-800 text-white">
-        <div className="container mx-auto px-4 sm:px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+     <section className="py-16 bg-blue-800 text-white">
+  <div className="container mx-auto px-4 sm:px-6 text-center">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+    >
+      <h2 className="text-3xl md:text-4xl font-bold mb-6">
+        Ready to Be Part of Our Story?
+      </h2>
+      <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+        Discover how Anand Productions' commitment to cinematic excellence can bring your stories to life on the big screen.
+      </p>
+
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        
+        {/* Collaborate Button */}
+        <motion.div
+          className="flex-1 sm:max-w-[220px]"     // ⬅ Makes both buttons same width
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Link
+            to="/contact"
+            className="w-full block bg-orange-500 text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:bg-orange-600 transition-all duration-300"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Be Part of Our Story?
-            </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Discover how Anand Productions' commitment to cinematic excellence can bring your stories to life on the big screen.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  to="/contact"
-                  className="bg-orange-500 text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:bg-orange-600 transition-all duration-300 inline-block"
-                >
-                  Collaborate With Us
-                </Link>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  to="/about"
-                  className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-800 transition-all duration-300 inline-block"
-                >
-                  Learn More
-                </Link>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            Collaborate With Us
+          </Link>
+        </motion.div>
+
+        {/* Learn More Button */}
+        <motion.div
+          className="flex-1 sm:max-w-[220px]"     // ⬅ Same width for both
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Link
+            to="/about"
+            className="w-full block border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-800 transition-all duration-300"
+          >
+            Learn More
+          </Link>
+        </motion.div>
+
+      </div>
+    </motion.div>
+  </div>
+</section>
+
 
       {/* POPUP MODAL */}
       <AnimatePresence>
