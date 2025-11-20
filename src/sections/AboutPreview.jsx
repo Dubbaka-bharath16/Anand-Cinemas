@@ -97,7 +97,7 @@ const AboutPreview = () => {
                 }}
                 className="group"
               >
-                <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl hover:border-orange-200 transition-all duration-300">
+                <div className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300">
                   {/* Film Image */}
                   <div className="h-64 overflow-hidden">
                     <motion.img 
@@ -107,22 +107,6 @@ const AboutPreview = () => {
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.5 }}
                     />
-                    
-                    {/* Overlay on Hover */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileHover={{ opacity: 1, scale: 1 }}
-                        className="text-white text-center"
-                      >
-                        <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-2">
-                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <span className="text-sm font-semibold">View Details</span>
-                      </motion.div>
-                    </div>
                   </div>
 
                   {/* Film Content */}
@@ -174,14 +158,6 @@ const AboutPreview = () => {
                 View All Projects
               </motion.button>
             </Link>
-            
-            {/* Additional Text */}
-            {/* <motion.p 
-              variants={itemVariants}
-              className="text-gray-600 mt-6 text-sm md:text-base"
-            >
-              Explore our complete portfolio of cinematic masterpieces
-            </motion.p> */}
           </motion.div>
         </motion.div>
       </div>
