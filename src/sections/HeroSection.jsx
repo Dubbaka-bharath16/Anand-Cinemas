@@ -1,9 +1,10 @@
 // HeroNestedCarousel.jsx
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
 /* ---------------------------
-   Outer slides (same as before)
+   Outer slides
    --------------------------- */
 const outerSlides = [
   {
@@ -27,7 +28,7 @@ const outerSlides = [
 ];
 
 /* ---------------------------
-   Inner films (your films list)
+   Inner films
    --------------------------- */
 const filmsData = [
   {
@@ -60,11 +61,11 @@ const filmsData = [
 ];
 
 /* ---------------------------
-   Config constants
+   Config constants - SLOWER TIMINGS (5 SECONDS)
    --------------------------- */
-const CONTENT_AUTOPLAY_MS = 5000; // Content changes every 5 seconds
-const INNER_AUTOPLAY_MS = 4000; // Film slides move every 4 seconds
-const INNER_TRANS_MS = 800; // Film transitions
+const CONTENT_AUTOPLAY_MS = 4000;
+const INNER_AUTOPLAY_MS = 5000; // Changed to 5 seconds
+const INNER_TRANS_MS = 1200;    // Slower transition
 
 /* ---------------------------
    useInterval helper
@@ -80,27 +81,62 @@ function useInterval(callback, delay, enabled = true) {
 }
 
 /* ---------------------------
-   InnerCarousel - Centered film cards
+   Animation Variants - SLOWER ANIMATIONS
+   --------------------------- */
+const testimonialVariants = {
+  enter: (direction) => ({
+    x: direction > 0 ? 100 : -100,
+    opacity: 0,
+    scale: 0.95
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    scale: 1,
+    transition: {
+      x: { type: "spring", stiffness: 200, damping: 25 }, // Softer spring
+      opacity: { duration: 0.8 }, // Slower fade
+      scale: { duration: 0.6 }    // Slower scale
+    }
+  },
+  exit: (direction) => ({
+    x: direction < 0 ? 100 : -100,
+    opacity: 0,
+    scale: 0.95,
+    transition: {
+      x: { type: "spring", stiffness: 200, damping: 25 }, // Softer spring
+      opacity: { duration: 0.6 }, // Slower fade out
+      scale: { duration: 0.4 }    // Slower scale out
+    }
+  })
+};
+
+/* ---------------------------
+   InnerCarousel - SLOWER 5 SECOND TRANSITIONS
    --------------------------- */
 const InnerCarousel = ({ items = filmsData }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [direction, setDirection] = useState(0);
 
-  // Autoplay for films
+  // Autoplay for films - 5 SECOND INTERVAL
   useInterval(
     () => {
-      if (!isAnimating) {
+      if (!isAnimating && !isHovered) {
+        setDirection(1);
         setIsAnimating(true);
         setCurrentIndex((prev) => (prev + 1) % items.length);
         setTimeout(() => setIsAnimating(false), INNER_TRANS_MS);
       }
     },
-    INNER_AUTOPLAY_MS,
+    INNER_AUTOPLAY_MS, // 5000ms = 5 seconds
     true
   );
 
   const safePrev = () => {
     if (isAnimating) return;
+    setDirection(-1);
     setIsAnimating(true);
     setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
     setTimeout(() => setIsAnimating(false), INNER_TRANS_MS);
@@ -108,6 +144,7 @@ const InnerCarousel = ({ items = filmsData }) => {
 
   const safeNext = () => {
     if (isAnimating) return;
+    setDirection(1);
     setIsAnimating(true);
     setCurrentIndex((prev) => (prev + 1) % items.length);
     setTimeout(() => setIsAnimating(false), INNER_TRANS_MS);
@@ -117,79 +154,126 @@ const InnerCarousel = ({ items = filmsData }) => {
 
   return (
     <div className="w-full flex justify-center">
-      <div className="relative max-w-md w-full">
-        {/* Centered Film Card */}
-        <div
-          className={`transition-all duration-500 ease-out ${
-            isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"
-          }`}
-        >
-          <div className="bg-black/60 rounded-xl overflow-hidden shadow-lg border border-white/10">
-            <div className="flex flex-col sm:flex-row">
-              {/* Film Image */}
-              <div className="w-full sm:w-2/5">
-                <img
-                  src={currentFilm.image}
-                  alt={currentFilm.title}
-                  className="w-full h-48 sm:h-44 object-cover"
-                />
-              </div>
-
-              {/* Film Info */}
-              <div className="w-full sm:w-3/5 p-4 sm:p-5">
-                <h3 className="text-lg sm:text-base font-bold text-white mb-2 line-clamp-1">
-                  {currentFilm.title}
-                </h3>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="text-xs bg-amber-500 text-black px-2 py-1 rounded">
-                    {currentFilm.genre}
-                  </span>
-                  <span className="text-xs text-gray-300">{currentFilm.year}</span>
+      <div 
+        className="relative w-full max-w-sm sm:max-w-md"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        {/* Film Card with Slower Animations */}
+        <div className="relative bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden mx-2 sm:mx-0">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={currentIndex}
+              custom={direction}
+              variants={testimonialVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="p-4 sm:p-6"
+            >
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                {/* Film Image */}
+                <div className="flex-shrink-0">
+                  <motion.img
+                    src={currentFilm.image}
+                    alt={currentFilm.title}
+                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-orange-500 shadow-lg"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  />
                 </div>
-                <p className="text-sm text-gray-300 line-clamp-3 leading-relaxed">
-                  {currentFilm.description}
-                </p>
+
+                {/* Film Info */}
+                <div className="flex-1 text-center sm:text-left">
+                  <motion.h3 
+                    className="text-lg sm:text-xl font-bold text-gray-900 mb-2 line-clamp-1"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                  >
+                    {currentFilm.title}
+                  </motion.h3>
+                  <motion.div 
+                    className="flex flex-col sm:flex-row items-center gap-2 mb-3 justify-center sm:justify-start"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                  >
+                    <span className="text-xs bg-orange-500 text-white px-3 py-1 rounded-full font-semibold">
+                      {currentFilm.genre}
+                    </span>
+                    <span className="text-xs text-gray-600 font-medium bg-gray-100 px-2 py-1 rounded">
+                      {currentFilm.year}
+                    </span>
+                  </motion.div>
+                  <motion.p 
+                    className="text-sm text-gray-700 leading-relaxed line-clamp-3 sm:line-clamp-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                  >
+                    {currentFilm.description}
+                  </motion.p>
+                </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
 
         {/* Navigation Controls */}
-        <div className="hidden sm:flex absolute -left-4 -right-4 top-1/2 transform -translate-y-1/2 justify-between items-center">
-          <button
+        <div className="flex justify-center items-center mt-6 gap-4 sm:gap-3">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             onClick={safePrev}
-            className="bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm transition-all duration-300 shadow-lg backdrop-blur-sm"
+            className="bg-blue-600 text-white rounded-full w-10 h-10 sm:w-8 sm:h-8 flex items-center justify-center text-base sm:text-sm font-bold transition-all duration-300 shadow-lg hover:bg-blue-700"
             aria-label="Previous film"
           >
             ‹
-          </button>
-          <button
-            onClick={safeNext}
-            className="bg-white/20 hover:bg-white/30 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm transition-all duration-300 shadow-lg backdrop-blur-sm"
-            aria-label="Next film"
-          >
-            ›
-          </button>
-        </div>
-
-        {/* Film Counter - Centered */}
-        <div className="flex justify-center mt-4">
-          <div className="flex gap-2">
+          </motion.button>
+          
+          {/* Film Counter */}
+          <div className="flex gap-2 sm:gap-1 items-center mx-2 sm:mx-0">
             {items.map((_, index) => (
-              <button
+              <motion.button
                 key={index}
+                whileHover={{ scale: 1.3 }}
+                whileTap={{ scale: 0.8 }}
                 onClick={() => {
                   if (isAnimating) return;
+                  setDirection(index > currentIndex ? 1 : -1);
                   setIsAnimating(true);
                   setCurrentIndex(index);
                   setTimeout(() => setIsAnimating(false), INNER_TRANS_MS);
                 }}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex ? "bg-amber-500" : "bg-white/30"
+                className={`w-3 h-3 sm:w-2 sm:h-2 rounded-full transition-all duration-500 ${
+                  index === currentIndex ? "bg-orange-500" : "bg-gray-400"
                 }`}
               />
             ))}
           </div>
+
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={safeNext}
+            className="bg-blue-600 text-white rounded-full w-10 h-10 sm:w-8 sm:h-8 flex items-center justify-center text-base sm:text-sm font-bold transition-all duration-300 shadow-lg hover:bg-blue-700"
+            aria-label="Next film"
+          >
+            ›
+          </motion.button>
+        </div>
+
+        {/* Auto-rotation Indicator */}
+        <div className="text-center mt-3">
+          <motion.p 
+            className="text-xs text-blue-200 opacity-70"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.7 }}
+            transition={{ delay: 1 }}
+          >
+            
+          </motion.p>
         </div>
       </div>
     </div>
@@ -197,148 +281,166 @@ const InnerCarousel = ({ items = filmsData }) => {
 };
 
 /* ---------------------------
-   OuterCarouselHero - Centered content with fade transitions
-   - content & card nudged slightly down; mobile shows content first then card
+   OuterCarouselHero - CONTENT FIRST ON MOBILE
    --------------------------- */
 const HeroNestedCarousel = () => {
   const [contentIndex, setContentIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isContentHovered, setIsContentHovered] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, threshold: 0.1 });
 
-  // Automatic content changes with fade effect
+  // Automatic content changes with HOVER PAUSE
   useEffect(() => {
+    if (isContentHovered) return;
+    
     const interval = setInterval(() => {
-      if (!isAnimating) {
-        setIsAnimating(true);
-        setTimeout(() => {
-          setContentIndex((prev) => (prev + 1) % outerSlides.length);
-          setIsAnimating(false);
-        }, 500); // Half the transition time for smooth fade
-      }
+      setContentIndex((prev) => (prev + 1) % outerSlides.length);
     }, CONTENT_AUTOPLAY_MS);
 
     return () => clearInterval(interval);
-  }, [isAnimating]);
+  }, [isContentHovered]);
 
   const currentContent = outerSlides[contentIndex];
 
   return (
-    <section className="relative w-full min-h-screen overflow-hidden pt-20 bg-gradient-to-b from-slate-900 via-slate-900/95 to-black">
-      {/* FIXED Background */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div
-          className="w-full h-full bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `linear-gradient(rgba(6,6,23,0.25), rgba(6,6,23,0.35)), url('${outerSlides[0].image}')`,
-          }}
-        />
-
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 bg-black/45 backdrop-blur-sm" />
-          <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black/80 to-transparent" />
-        </div>
-      </div>
-
-      {/* Content area - Slightly lower on the page (nudge) */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-start lg:items-center justify-center py-12">
-        {/* added mt-6 to nudge both content & card downward on larger screens */}
-        <div className="w-full flex flex-col lg:flex-row items-start lg:items-center justify-center gap-8 lg:gap-12 mt-6">
-          {/* Main Content - Centered (mobile first, content appears first) */}
-          <div className="w-full lg:w-1/2 flex justify-center order-1 lg:order-1">
+    <motion.section 
+      ref={ref}
+      initial={{ opacity: 0 }}
+      animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+      transition={{ duration: 1 }}
+      className="relative w-full min-h-screen overflow-hidden pt-20 bg-blue-800"
+    >
+      {/* Content area - CONTENT FIRST ON MOBILE */}
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-3 sm:px-6 lg:px-8 h-full flex items-start lg:items-center justify-center py-8 sm:py-12">
+        <div className="w-full flex flex-col lg:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-12">
+          
+          {/* Main Content - FIRST ON MOBILE */}
+          <div 
+            className="w-full lg:w-1/2 flex justify-center order-1 lg:order-1"
+            onMouseEnter={() => setIsContentHovered(true)}
+            onMouseLeave={() => setIsContentHovered(false)}
+          >
             <div className="max-w-2xl text-center lg:text-left">
-              {/* Content with Fade Transition */}
-              <div className="min-h-[300px] flex flex-col justify-center">
-                <div
-                  className={`transition-all duration-1000 ease-in-out ${
-                    isAnimating ? "opacity-0" : "opacity-100"
-                  }`}
-                >
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-6">
-                    <span className="text-white">{currentContent.title.split(" ").slice(0, -1).join(" ")}</span>{" "}
-                    <span className="text-amber-400">{currentContent.title.split(" ").slice(-1)}</span>
-                  </h1>
+              <div className="min-h-[200px] sm:min-h-[300px] flex flex-col justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={contentIndex}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    className="flex flex-col justify-center"
+                  >
+                    {/* Responsive Title */}
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 sm:mb-6">
+                      <span className="text-white">{currentContent.title.split(" ").slice(0, -1).join(" ")}</span>{" "}
+                      <span className="text-orange-300">{currentContent.title.split(" ").slice(-1)}</span>
+                    </h1>
 
-                  <p className="text-lg sm:text-xl text-gray-200 leading-relaxed mb-8 max-w-xl mx-auto lg:mx-0">
-                    {currentContent.subtitle}
-                  </p>
+                    {/* Responsive Subtitle */}
+                    <p className="text-base sm:text-lg md:text-xl text-blue-100 leading-relaxed mb-6 sm:mb-8 max-w-xl mx-auto lg:mx-0 px-2 sm:px-0">
+                      {currentContent.subtitle}
+                    </p>
 
-                  <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
-                    <Link to="/projects">
-                      <button className="px-8 py-3 rounded-full bg-amber-500 text-black font-semibold hover:scale-105 transition-all duration-300 ease-out shadow-lg text-base">
-                        Explore Our Work
-                      </button>
-                    </Link>
-                    <Link to="/contact">
-                      <button className="px-8 py-3 rounded-full border border-white/30 text-white font-semibold hover:bg-white/10 transition-all duration-300 ease-out text-base">
-                        Contact Us
-                      </button>
-                    </Link>
-                  </div>
-                </div>
+                    {/* Responsive Buttons */}
+                    <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 justify-center lg:justify-start">
+                      <Link to="/projects" className="w-full sm:w-auto">
+                        <motion.button 
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="w-full sm:w-auto px-6 sm:px-8 py-3 rounded-lg bg-orange-500 text-white font-semibold hover:bg-orange-600 transition-all duration-300 shadow-lg hover:shadow-xl text-sm sm:text-base"
+                        >
+                          Explore Our Work
+                        </motion.button>
+                      </Link>
+                      <Link to="/contact" className="w-full sm:w-auto">
+                        <motion.button 
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="w-full sm:w-auto px-6 sm:px-8 py-3 rounded-lg border-2 border-white text-white font-semibold hover:bg-white hover:text-blue-800 transition-all duration-300 text-sm sm:text-base"
+                        >
+                          Contact Us
+                        </motion.button>
+                      </Link>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
 
-              {/* Content Indicators - Centered */}
-              <div className="flex gap-3 mt-8 justify-center lg:justify-start">
+              {/* Content Indicators */}
+              <div className="flex gap-2 sm:gap-3 mt-6 sm:mt-8 justify-center lg:justify-start">
                 {outerSlides.map((_, index) => (
-                  <button
+                  <motion.button
                     key={index}
-                    onClick={() => {
-                      setIsAnimating(true);
-                      setTimeout(() => {
-                        setContentIndex(index);
-                        setIsAnimating(false);
-                      }, 500);
-                    }}
-                    className={`group transition-all duration-300 ${index === contentIndex ? "w-8" : "w-4"}`}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.8 }}
+                    onClick={() => setContentIndex(index)}
+                    className={`group transition-all duration-300 ${index === contentIndex ? "w-6 sm:w-8" : "w-3 sm:w-4"}`}
                   >
                     <div
-                      className={`h-1 rounded-full transition-all duration-300 ${
-                        index === contentIndex ? "bg-amber-500" : "bg-white/40 group-hover:bg-white/60"
+                      className={`h-1 sm:h-1 rounded-full transition-all duration-300 ${
+                        index === contentIndex ? "bg-orange-500" : "bg-white/40 group-hover:bg-white/60"
                       }`}
                     />
-                  </button>
+                  </motion.button>
                 ))}
               </div>
             </div>
           </div>
 
-          {/* Film Carousel - Centered (mobile second) */}
-          <div className="w-full lg:w-1/2 flex justify-center order-2 lg:order-2">
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 backdrop-blur-sm max-w-md w-full">
-              <div className="mb-6 text-center">
-                <div className="flex items-center gap-3 justify-center">
-                  <div className="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+          {/* Film Carousel - SECOND ON MOBILE */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="w-full lg:w-1/2 flex justify-center order-2 lg:order-2 mt-4 sm:mt-0"
+          >
+            <motion.div 
+              whileHover={{ y: -3 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white/10 border border-white/20 rounded-xl sm:rounded-2xl p-4 sm:p-6 backdrop-blur-sm w-full max-w-sm sm:max-w-md shadow-xl sm:shadow-2xl mx-2 sm:mx-0"
+            >
+              {/* Header */}
+              <div className="mb-4 sm:mb-6 text-center">
+                <div className="flex items-center gap-2 sm:gap-3 justify-center">
+                  <motion.div 
+                    whileHover={{ scale: 1.05 }}
+                    className="w-8 h-8 sm:w-10 sm:h-10 bg-orange-500/20 rounded-lg flex items-center justify-center"
+                  >
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
                       <path
                         fillRule="evenodd"
                         d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
                         clipRule="evenodd"
                       />
                     </svg>
-                  </div>
+                  </motion.div>
                   <div>
-                    <div className="font-bold text-white text-lg">Featured Films</div>
-                    <div className="text-sm text-gray-400">Now showing</div>
+                    <div className="font-bold text-white text-base sm:text-lg">Featured Films</div>
+                    <div className="text-xs sm:text-sm text-blue-200">Now showing</div>
                   </div>
                 </div>
               </div>
 
-              {/* Centered Film Carousel */}
+              {/* Film Carousel with 5-second rotation */}
               <InnerCarousel items={filmsData} />
 
-              {/* Additional film info */}
-              <div className="mt-6 pt-4 border-t border-white/10 text-center">
-                <div className="flex justify-between items-center text-sm text-gray-400">
-                  <span>Latest Productions</span>
-                  <Link to="/films" className="text-amber-400 hover:text-amber-300 transition-colors">
-                    View All →
-                  </Link>
-                </div>
+              {/* View All Link */}
+              <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-white/20 text-center">
+                <Link to="/projects">
+                  <motion.span 
+                    whileHover={{ x: 3, color: "#fbbf24" }}
+                    className="text-orange-300 hover:text-orange-200 transition-colors cursor-pointer font-semibold text-xs sm:text-sm"
+                  >
+                    View All Films →
+                  </motion.span>
+                </Link>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div> 
-    </section>
+    </motion.section>
   );
 };
 

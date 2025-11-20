@@ -12,6 +12,7 @@ import Contact from './pages/Contact'
 function App() {
   return (
     <Router>
+      <ScrollToTop/>
       <div className="min-h-screen">
         <Header />
         

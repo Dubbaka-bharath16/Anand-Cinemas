@@ -1,42 +1,439 @@
-import React from 'react'
+import React, { useMemo, useState, useRef } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 
 const Gallery = () => {
-  const galleryImages = [
-    "https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1084&q=80",
-    "data:image/jpeg;base64,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",
-    "https://images.unsplash.com/photo-1518638150340-f706e86654de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
-    "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80",
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
-    "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
-    "https://images.unsplash.com/photo-1585647347384-2593bc35786b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1180&q=80",
-    "https://images.unsplash.com/photo-1552422535-c45813c61732?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80"
-  ]
+  const galleryItems = [
+    {
+      src:
+        "https://images.unsplash.com/photo-1542751110-97427bbecf20?ixlib=rb-4.0.3&auto=format&fit=crop&w=1084&q=80",
+      type: "image",
+      category: "Stills",
+      title: "Set Stills 1",
+    },
+    {
+      src:
+        "https://images.unsplash.com/photo-1518638150340-f706e86654de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80",
+      type: "image",
+      category: "Events",
+      title: "Premiere Night",
+    },
+    {
+      src:
+        "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?ixlib=rb-4.0.3&auto=format&fit=crop&w=1176&q=80",
+      type: "image",
+      category: "Stills",
+      title: "BTS 1",
+    },
+    {
+      src:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80",
+      type: "image",
+      category: "Stills",
+      title: "BTS 2",
+    },
+    {
+      src: "https://www.youtube.com/embed/ScMzIvxBSi4",
+      type: "video",
+      category: "Trailers",
+      title: "Trailer (YouTube)",
+    },
+    {
+      src:
+        "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      type: "video",
+      category: "Behind Scenes",
+      title: "BTS Clip (MP4)",
+    },
+    {
+      src:
+        "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+      type: "image",
+      category: "Events",
+      title: "Audience",
+    },
+    {
+      src:
+        "https://images.unsplash.com/photo-1585647347384-2593bc35786b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1180&q=80",
+      type: "image",
+      category: "Stills",
+      title: "Production",
+    },
+  //   {
+  //     src:
+  //       "https://images.unsplash.com/photo-1552422535-c45813c61732?ixlib=rb-4.0.3&auto=format&fit=crop&w=1160&q=80",
+  //     type: "image",
+  //     category: "Stills",
+  //     title: "Director Shot",
+  //   },
+  ];
+
+  const filters = [
+    { key: "all", label: "All" },
+    { key: "images", label: "Images" },
+    { key: "videos", label: "Videos" },
+    { key: "trailers", label: "Trailers" },
+    { key: "behind", label: "Behind Scenes" },
+  ];
+
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const heroRef = useRef(null);
+  const sectionRef = useRef(null);
+  const isHeroInView = useInView(heroRef, { once: true, threshold: 0.3 });
+  const isInView = useInView(sectionRef, { once: true, threshold: 0.3 });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { scale: 0.9, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.8,
+      transition: {
+        duration: 0.2
+      }
+    }
+  };
+
+  const filteredItems = useMemo(() => {
+    if (activeFilter === "all") return galleryItems;
+    if (activeFilter === "images")
+      return galleryItems.filter((it) => it.type === "image");
+    if (activeFilter === "videos")
+      return galleryItems.filter((it) => it.type === "video");
+    if (activeFilter === "trailers")
+      return galleryItems.filter((it) =>
+        it.category.toLowerCase().includes("trail")
+      );
+    if (activeFilter === "behind")
+      return galleryItems.filter((it) =>
+        it.category.toLowerCase().includes("behind")
+      );
+    return galleryItems;
+  }, [activeFilter]);
+
+  function openItem(item) {
+    setSelectedItem(item);
+    setModalOpen(true);
+  }
+
+  function closeModal() {
+    setModalOpen(false);
+    setSelectedItem(null);
+  }
 
   return (
-   <section className="py-20 pt-header">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center  text-blue-800 mb-12 relative ">Gallery</h2>
-        <p className="text-center max-w-4xl mx-auto mb-12 text-lg font-opensans">
-          Behind the scenes moments, production stills, and events that capture the essence of our filmmaking journey.
-        </p>
-        
-        <div className="gallery-grid grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
-          {galleryImages.map((image, index) => (
-            <div key={index} className="gallery-item relative rounded-lg overflow-hidden h-64 cursor-pointer">
-              <img 
-                src={image} 
-                alt={`Gallery ${index + 1}`}
-                className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-              />
-              <div className="gallery-overlay absolute inset-0 bg-navy-blue bg-opacity-80 flex items-center justify-center opacity-0 transition-opacity duration-300 hover:opacity-100">
-                <i className="fas fa-search-plus text-white text-3xl"></i>
-              </div>
-            </div>
-          ))}
+    <div className="min-h-screen bg-gray-50 overflow-x-hidden">
+      {/* Hero Section - Fixed with proper top spacing */}
+      <motion.section 
+        ref={heroRef}
+        initial={{ opacity: 0 }}
+        animate={isHeroInView ? { opacity: 1 } : { opacity: 0 }}
+        transition={{ duration: 1 }}
+        className="relative py-16 md:py-20 bg-blue-100 overflow-hidden mt-16"
+      >
+        {/* Background Elements (subtle, kept minimal) */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute -left-24 -top-20 w-72 h-72 bg-blue-200 rounded-full filter blur-3xl opacity-10"></div>
+          <div className="absolute -right-24 -bottom-20 w-96 h-96 bg-blue-200 rounded-full filter blur-3xl opacity-8"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-200 rounded-full filter blur-3xl opacity-6"></div>
         </div>
-      </div>
-    </section>
-  )
-}
+        
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+            transition={{ duration: 1 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-blue-800"
+            >
+              Our <span className="text-orange-300">Gallery</span>
+            </motion.h1>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-lg sm:text-xl md:text-2xl text-blue-700 leading-relaxed mb-8 max-w-3xl mx-auto px-2 sm:px-4"
+            >
+              Explore behind the scenes moments, production stills, and cinematic highlights from our filmmaking journey.
+            </motion.p>
 
-export default Gallery
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.8, delay: 0.9 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            >
+              <div className="flex items-center gap-2 text-blue-700">
+                <i className="fas fa-images text-xl"></i>
+                <span className="text-sm md:text-base">{galleryItems.length}+ Media Items</span>
+              </div>
+              <div className="w-1 h-1 bg-blue-400 rounded-full"></div>
+              <div className="flex items-center gap-2 text-blue-700">
+                <i className="fas fa-film text-xl"></i>
+                <span className="text-sm md:text-base">Videos & Images</span>
+              </div>
+              <div className="w-1 h-1 bg-blue-400 rounded-full"></div>
+              <div className="flex items-center gap-2 text-blue-700">
+                <i className="fas fa-play-circle text-xl"></i>
+                <span className="text-sm md:text-base">Interactive Preview</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Gallery Content Section */}
+      <section ref={sectionRef} className="py-12 md:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? "visible" : "hidden"}
+            className="max-w-6xl mx-auto"
+          >
+            {/* Header */}
+            <motion.div variants={itemVariants} className="text-center mb-12 md:mb-16">
+              <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4 md:mb-6">
+                Explore Our Work
+              </h2>
+              <div className="w-20 h-1 md:w-24 md:h-1 bg-gradient-to-r from-blue-500 to-orange-500 mx-auto rounded-full mb-6 md:mb-8"></div>
+              <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-4xl mx-auto px-2 sm:px-4">
+                Behind the scenes moments, production stills, and events that capture
+                the essence of our filmmaking journey.
+              </p>
+            </motion.div>
+
+            {/* Filter Buttons */}
+            <motion.div 
+              variants={itemVariants}
+              className="flex items-center justify-center gap-3 md:gap-4 mb-8 md:mb-12 flex-wrap"
+            >
+              {filters.map((f) => {
+                const active = activeFilter === f.key;
+                return (
+                  <motion.button
+                    key={f.key}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setActiveFilter(f.key)}
+                    className={`px-5 md:px-6 py-2 md:py-3 rounded-full text-sm md:text-base font-semibold transition-all duration-300 ${
+                      active
+                        ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg"
+                        : "bg-blue-50 text-blue-700 hover:bg-blue-100 hover:shadow-md"
+                    }`}
+                    aria-pressed={active}
+                  >
+                    {f.label}
+                  </motion.button>
+                );
+              })}
+            </motion.div>
+
+            {/* Gallery Grid */}
+            <motion.div
+              variants={containerVariants}
+              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
+            >
+              {filteredItems.map((item, index) => (
+                <motion.div
+                  key={index}
+                  variants={cardVariants}
+                  whileHover={{ y: -8, scale: 1.03 }}
+                  className="relative rounded-2xl overflow-hidden h-48 md:h-64 cursor-pointer group"
+                  onClick={() => openItem(item)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") openItem(item);
+                  }}
+                >
+                  {item.type === "image" ? (
+                    <motion.img
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.5 }}
+                      src={item.src}
+                      alt={item.title || `Gallery ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-black flex items-center justify-center">
+                      <motion.img
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.5 }}
+                        src={
+                          item.src.includes("youtube.com/embed")
+                            ? (() => {
+                                const id = item.src.split("/embed/")[1];
+                                return id ? `https://img.youtube.com/vi/${id.split("?")[0]}/hqdefault.jpg` : "";
+                              })()
+                            : "https://images.unsplash.com/photo-1518638150340-f706e86654de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1074&q=80"
+                        }
+                        alt={item.title || "video thumbnail"}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <motion.div
+                          whileHover={{ scale: 1.2 }}
+                          className="w-12 h-12 md:w-16 md:h-16 bg-blue-600 rounded-full flex items-center justify-center shadow-lg"
+                        >
+                          <i className="fas fa-play text-white text-lg md:text-xl ml-1"></i>
+                        </motion.div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Overlay */}
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end justify-start p-4 md:p-6"
+                  >
+                    <div className="text-white">
+                      <h3 className="font-semibold text-sm md:text-base mb-1">{item.title}</h3>
+                      <p className="text-blue-200 text-xs md:text-sm">{item.category}</p>
+                    </div>
+                  </motion.div>
+
+                  {/* Hover Icon */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileHover={{ opacity: 1, scale: 1 }}
+                    className="absolute top-3 right-3 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center"
+                  >
+                    {item.type === "image" ? (
+                      <i className="fas fa-search-plus text-white text-sm"></i>
+                    ) : (
+                      <i className="fas fa-play text-white text-sm"></i>
+                    )}
+                  </motion.div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Modal */}
+      <AnimatePresence>
+        {modalOpen && selectedItem && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+            onClick={closeModal}
+          >
+            <motion.div
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="max-w-4xl lg:max-w-5xl w-full max-h-full rounded-2xl overflow-hidden bg-white shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex justify-between items-center p-4 md:p-6 bg-white border-b border-gray-200">
+                <h3 className="text-lg md:text-xl font-bold text-blue-800">
+                  {selectedItem.title || ""}
+                </h3>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={closeModal}
+                  className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors duration-200"
+                  aria-label="Close"
+                >
+                  <i className="fas fa-times text-gray-600 text-sm md:text-base"></i>
+                </motion.button>
+              </div>
+
+              <div className="bg-black flex items-center justify-center">
+                {selectedItem.type === "image" ? (
+                  <motion.img
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    src={selectedItem.src}
+                    alt={selectedItem.title || "gallery image"}
+                    className="w-full h-auto max-h-[70vh] md:max-h-[80vh] object-contain"
+                  />
+                ) : selectedItem.src.includes("youtube.com/embed") ||
+                  selectedItem.src.includes("youtube-nocookie.com") ? (
+                  <div className="aspect-video w-full">
+                    <iframe
+                      title={selectedItem.title || "video"}
+                      src={`${selectedItem.src}?autoplay=1`}
+                      allow="autoplay; encrypted-media"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                ) : (
+                  <motion.video
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    src={selectedItem.src}
+                    controls
+                    autoPlay
+                    className="w-full max-h-[70vh] md:max-h-[80vh]"
+                  />
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default Gallery;

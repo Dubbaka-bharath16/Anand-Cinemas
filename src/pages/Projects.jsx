@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 const Films = () => {
   const [selectedFilm, setSelectedFilm] = useState(null)
@@ -72,104 +74,290 @@ const Films = () => {
     }
   ]
 
+  // Animation variants matching About page
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  }
+
+  const itemVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut"
+      }
+    }
+  }
+
+  const cardVariants = {
+    hidden: { scale: 0.9, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  }
+
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.45, ease: "easeOut" } },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.25, ease: "easeIn" } }
+  }
+
   return (
     <>
-      <section className="py-20 pt-header">
-        <div className="container mx-auto px-4">
+      {/* HERO SECTION - SIMPLE SOLID COLOR */}
+      <section className="relative min-h-[60vh] bg-blue-800 overflow-hidden pt-header">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="max-w-6xl mx-auto text-center text-white py-20"
+          >
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-3xl md:text-5xl font-bold mb-6"
+            >
+              Our <span className="text-cyan-300">Cinematic</span> Journey
+            </motion.h1>
 
-          {/* UPDATED HEADER COLOR */}
-          <h2 className="text-4xl font-bold text-center mb-12 relative text-blue-800 bg-clip-text ">
-            Our Projects
-          </h2>
-
-          <p className="text-center max-w-4xl mx-auto mb-12 text-lg">
-            A collection of our journeys into the human experience. Each film is a world we've built, a character we've lived with, and a message we are proud to share.
-          </p>
-          
-          <div className="films-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {films.map((film, index) => (
-              <div key={index} className="film-card bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl">
-                <div className="film-image h-64 overflow-hidden">
-                  <img 
-                    src={film.image} 
-                    alt={film.title}
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                  />
-                </div>
-                <div className="film-content p-6">
-                  <h3 className="text-xl font-bold mb-3">{film.title}</h3>
-                  <div className="film-meta flex justify-between text-sm text-gray-600 mb-4">
-                    <span>{film.genre}</span>
-                    <span>{film.year}</span>
-                  </div>
-                  <p className="text-gray-700 mb-4">{film.description}</p>
-
-                  {/* UPDATED BUTTON COLOR */}
-                  <button 
-                    onClick={() => setSelectedFilm(film)}
-                    className="bg-cyan-500 text-white px-6 py-2 rounded-lg font-semibold hover:opacity-90 transition-all"
-                  >
-                    View Details →
-                  </button>
-
-                </div>
-              </div>
-            ))}
-          </div>
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed"
+            >
+              From powerful dramas to captivating documentaries, each film represents our commitment 
+              to storytelling excellence and artistic innovation.
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Popup Modal */}
-      {selectedFilm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="relative">
-              <img 
-                src={selectedFilm.image} 
-                alt={selectedFilm.title}
-                className="w-full h-64 object-cover"
-              />
-              <button 
-                onClick={() => setSelectedFilm(null)}
-                className="absolute top-4 right-4 bg-white rounded-full w-8 h-8 flex items-center justify-center hover:bg-gray-100 transition-colors"
-              >
-                ×
-              </button>
-            </div>
-            
-            <div className="p-6">
-              <h3 className="text-2xl font-bold mb-4">{selectedFilm.title}</h3>
-              
-              <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
-                <div>
-                  <span className="font-semibold">Genre:</span> {selectedFilm.genre}
-                </div>
-                <div>
-                  <span className="font-semibold">Year:</span> {selectedFilm.year}
-                </div>
-                <div>
-                  <span className="font-semibold">Director:</span> {selectedFilm.director}
-                </div>
-                <div>
-                  <span className="font-semibold">Duration:</span> {selectedFilm.duration}
-                </div>
-              </div>
+      {/* FILMS GRID SECTION */}
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4 sm:px-6">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, threshold: 0.1 }}
+            className="max-w-7xl mx-auto"
+          >
+            <motion.div variants={itemVariants} className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-blue-800 mb-4">
+                Our Film Portfolio
+              </h2>
+              <div className="w-24 h-1 bg-blue-500 mx-auto mb-6 rounded-full"></div>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                A collection of our journeys into the human experience. Each film is a world we've built, 
+                a character we've lived with, and a message we are proud to share.
+              </p>
+            </motion.div>
 
-              <div className="mb-4">
-                <span className="font-semibold">Awards:</span> {selectedFilm.awards}
-              </div>
-              
-              <p className="text-gray-700 mb-6 leading-relaxed">{selectedFilm.details}</p>
-
-              {/* UPDATED BUTTON COLOR */}
-              <button className="bg-cyan-500 text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition-all w-full">
-                Watch Trailer
-              </button>
-
-            </div>
-          </div>
+            <motion.div
+              variants={containerVariants}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              {films.map((film, index) => (
+                <motion.div
+                  key={index}
+                  variants={cardVariants}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="relative h-64 overflow-hidden">
+                    <motion.img 
+                      src={film.image} 
+                      alt={film.title}
+                      className="w-full h-full object-cover"
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.6 }}
+                    />
+                    <div className="absolute top-4 right-4">
+                      <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                        film.year === 'Coming 2024' 
+                          ? 'bg-orange-500 text-white' 
+                          : 'bg-blue-600 text-white'
+                      }`}>
+                        {film.year}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3">{film.title}</h3>
+                    <div className="flex justify-between items-center text-sm text-gray-600 mb-4">
+                      <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">{film.genre}</span>
+                      <span>{film.duration}</span>
+                    </div>
+                    <p className="text-gray-700 mb-4 leading-relaxed">{film.description}</p>
+                    
+                    <motion.button 
+                      onClick={() => setSelectedFilm(film)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold w-full hover:bg-blue-700 transition-all duration-300"
+                    >
+                      View Details →
+                    </motion.button>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
         </div>
-      )}
+      </section>
+
+      {/* CTA SECTION - SIMPLE SOLID COLOR */}
+      <section className="py-16 bg-blue-800 text-white">
+        <div className="container mx-auto px-4 sm:px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Ready to Be Part of Our Story?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Discover how Anand Productions' commitment to cinematic excellence can bring your stories to life on the big screen.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  to="/contact"
+                  className="bg-orange-500 text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:bg-orange-600 transition-all duration-300 inline-block"
+                >
+                  Collaborate With Us
+                </Link>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link
+                  to="/about"
+                  className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-800 transition-all duration-300 inline-block"
+                >
+                  Learn More
+                </Link>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* POPUP MODAL */}
+      <AnimatePresence>
+        {selectedFilm && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+            >
+              <div className="relative">
+                <img 
+                  src={selectedFilm.image} 
+                  alt={selectedFilm.title}
+                  className="w-full h-64 object-cover"
+                />
+                <motion.button 
+                  onClick={() => setSelectedFilm(null)}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="absolute top-4 right-4 bg-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg hover:bg-gray-100 transition-colors"
+                >
+                  ×
+                </motion.button>
+              </div>
+              
+              <div className="p-6">
+                <motion.h3 
+                  className="text-2xl font-bold mb-4 text-gray-900"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {selectedFilm.title}
+                </motion.h3>
+                
+                <motion.div 
+                  className="grid grid-cols-2 gap-4 mb-6 text-sm"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <div>
+                    <span className="font-semibold text-blue-800">Genre:</span> {selectedFilm.genre}
+                  </div>
+                  <div>
+                    <span className="font-semibold text-blue-800">Year:</span> {selectedFilm.year}
+                  </div>
+                  <div>
+                    <span className="font-semibold text-blue-800">Director:</span> {selectedFilm.director}
+                  </div>
+                  <div>
+                    <span className="font-semibold text-blue-800">Duration:</span> {selectedFilm.duration}
+                  </div>
+                </motion.div>
+
+                <motion.div 
+                  className="mb-4 p-4 bg-yellow-50 rounded-lg border-l-4 border-yellow-500"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <span className="font-semibold text-yellow-800">Awards:</span> {selectedFilm.awards}
+                </motion.div>
+                
+                <motion.p 
+                  className="text-gray-700 mb-6 leading-relaxed"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  {selectedFilm.details}
+                </motion.p>
+
+                <motion.button 
+                  className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold w-full hover:bg-blue-700 transition-all duration-300"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Watch Trailer
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   )
 }

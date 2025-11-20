@@ -3,6 +3,16 @@
 /* Imports (fonts + FA) */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'); */
+/* Add this to your global CSS file (tailwind.css or index.css) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.font-sans {
+  font-family: 'Inter', sans-serif;
+}
  
 
 @tailwind base;
@@ -23,16 +33,10 @@
 /* Prevent horizontal scroll unexpectedly */
 html, body {
   overflow-x: hidden;
-  font-family:  sans-serif;
+  /* font-family:  sans-serif; */
 }
 
-/* Optional debug outline (comment out in production)
-* { outline: 1px solid rgba(255,0,0,0.03); }
-*/
 
-/* -----------------------------
-   Core: safe hero (accounts for fixed header)
-   ----------------------------- */
 .hero {
   /* fill remaining viewport under fixed header (prevents double-height) */
   min-height: calc(100vh - var(--header-h));

@@ -1,40 +1,15 @@
-import React from 'react'
+// ScrollToTop.jsx
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const ScrollToTop = () => {
-  const [isVisible, setIsVisible] = React.useState(false)
+  const { pathname } = useLocation();
 
-  React.useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 300) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
-    }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-    window.addEventListener('scroll', toggleVisibility)
-    return () => window.removeEventListener('scroll', toggleVisibility)
-  }, [])
+  return null;
+};
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
-  }
-
-  return (
-    <>
-      {isVisible && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-sunrise-gold text-navy-blue w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:bg-warm-orange hover:-translate-y-1 z-40"
-        >
-          <i className="fas fa-chevron-up"></i>
-        </button>
-      )}
-    </>
-  )
-}
-
-export default ScrollToTop
+export default ScrollToTop;
