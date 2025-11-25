@@ -136,14 +136,14 @@ const Contact = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 overflow-x-hidden mt-24">
+    <div className="min-h-screen bg-blue-800 overflow-x-hidden mt-24">
       {/* Hero Section - Light Blue without Gradient */}
       <motion.section 
         ref={heroRef}
         initial={{ opacity: 0 }}
         animate={isHeroInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 1 }}
-        className="relative py-16 md:py-20 bg-blue-100 overflow-hidden"
+        className="relative py-16 md:py-20 bg-blue-800 overflow-hidden"
       >
         {/* Background Elements - Removed gradient elements */}
         
@@ -158,7 +158,7 @@ const Contact = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-blue-800"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-white"
             >
               Let's <span className="text-orange-500">Create</span> Together
             </motion.h1>
@@ -167,7 +167,7 @@ const Contact = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-lg sm:text-xl md:text-2xl text-blue-700 leading-relaxed mb-8 max-w-3xl mx-auto px-2 sm:px-4"
+              className="text-lg sm:text-xl md:text-2xl text-white leading-relaxed mb-8 max-w-3xl mx-auto px-2 sm:px-4"
             >
               Your vision, our expertise. Let's bring your cinematic dreams to life.
             </motion.p>

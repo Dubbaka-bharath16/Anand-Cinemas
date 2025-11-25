@@ -52,7 +52,7 @@ const Header = () => {
                   <h1 className="text-lg md:text-xl font-bold text-blue-800">
                     <span className="text-orange-500">ANAND </span>CINEMAZ
                   </h1>
-                  <p className="text-xs text-gray-600 italic mt-1">
+                  <p className="sm:text-xs text-xxs text-gray-600 italic mt-1">
                     "Dharmo Rakshati Rakshitah"
                   </p>
                 </div>

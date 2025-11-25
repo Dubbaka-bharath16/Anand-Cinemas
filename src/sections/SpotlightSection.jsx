@@ -88,32 +88,41 @@ const SpotlightSection = () => {
   return (
     <>
       {/* Mission Section */}
-      <section ref={ref1} className="py-12 md:py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6">
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView1 ? "visible" : "hidden"}
-            className="max-w-4xl mx-auto text-center"
-          >
-            <motion.div variants={itemVariants} className="text-center mb-12 md:mb-16">
-              <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4 md:mb-6">
-                Our Mission
-              </h2>
-              <div className="w-20 h-1 md:w-24 md:h-1 bg-gradient-to-r from-blue-500 to-orange-500 mx-auto mb-6 md:mb-8 rounded-full"></div>
-            </motion.div>
+     <section ref={ref1} className="py-12 md:py-16 bg-white">
+  <div className="container mx-auto px-4 sm:px-6">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView1 ? "visible" : "hidden"}
+      className="max-w-4xl mx-auto text-center"
+    >
+      {/* Heading Section */}
+      <motion.div variants={itemVariants} className="text-center mb-6 md:mb-8">
+        <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-2 md:mb-3">
+          Our Mission
+        </h2>
 
-            <motion.div variants={itemVariants}>
-              <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed mb-6 md:mb-8 px-2 sm:px-4">
-                Anand Cinemaz focuses on producing meaningful, impactful, and high-quality cinematic content. We aim to blend creativity with purpose—crafting films that entertain, inspire, and carry strong social messages.
-              </p>
-              <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed px-2 sm:px-4">
-                With a commitment to artistic integrity and modern storytelling, our production house aspires to create cinema that leaves a lasting impression on audiences across all backgrounds.
-              </p>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+        <div className="w-20 h-1 md:w-24 md:h-1 bg-gradient-to-r from-blue-500 to-orange-500 mx-auto mb-3 md:mb-4 rounded-full"></div>
+      </motion.div>
+
+      {/* Content Section */}
+      <motion.div variants={itemVariants}>
+        <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed mb-4 md:mb-5 px-2 sm:px-4">
+          Anand Cinemaz is dedicated to creating meaningful, impactful, and high-quality
+          cinematic content. We strive to blend creativity with purpose, producing films
+          that not only entertain but also inspire and deliver powerful social messages.
+        </p>
+
+        <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed px-2 sm:px-4">
+          With a commitment to artistic integrity and modern storytelling, our production
+          house aspires to create cinema that leaves a lasting impression on audiences
+          across all backgrounds.
+        </p>
+      </motion.div>
+    </motion.div>
+  </div>
+</section>
+
 
       {/* Stats Section */}
       <section ref={ref2} className="py-12 md:py-20 bg-gradient-to-br from-blue-50 to-gray-50">

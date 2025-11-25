@@ -172,13 +172,13 @@ const Gallery = () => {
         initial={{ opacity: 0 }}
         animate={isHeroInView ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 1 }}
-        className="relative py-16 md:py-20 bg-blue-100 overflow-hidden mt-16"
+        className="relative py-16 md:py-20 bg-blue-800 overflow-hidden mt-16"
       >
         {/* Background Elements (subtle, kept minimal) */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -left-24 -top-20 w-72 h-72 bg-blue-200 rounded-full filter blur-3xl opacity-10"></div>
-          <div className="absolute -right-24 -bottom-20 w-96 h-96 bg-blue-200 rounded-full filter blur-3xl opacity-8"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-200 rounded-full filter blur-3xl opacity-6"></div>
+          <div className="absolute -right-24 -bottom-20 w-96 h-96 bg-blue-800 rounded-full filter blur-3xl opacity-8"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-800 rounded-full filter blur-3xl opacity-6"></div>
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
@@ -192,7 +192,7 @@ const Gallery = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-blue-800"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6 text-white"
             >
               Our <span className="text-orange-300">Gallery</span>
             </motion.h1>
@@ -201,7 +201,7 @@ const Gallery = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-lg sm:text-xl md:text-2xl text-blue-700 leading-relaxed mb-8 max-w-3xl mx-auto px-2 sm:px-4"
+              className="text-lg sm:text-xl md:text-2xl text-white leading-relaxed mb-8 max-w-3xl mx-auto px-2 sm:px-4"
             >
               Explore behind the scenes moments, production stills, and cinematic highlights from our filmmaking journey.
             </motion.p>
@@ -212,17 +212,17 @@ const Gallery = () => {
               transition={{ duration: 0.8, delay: 0.9 }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
-              <div className="flex items-center gap-2 text-blue-700">
+              <div className="flex items-center gap-2 text-white">
                 <i className="fas fa-images text-xl"></i>
                 <span className="text-sm md:text-base">{galleryItems.length}+ Media Items</span>
               </div>
               <div className="w-1 h-1 bg-blue-400 rounded-full"></div>
-              <div className="flex items-center gap-2 text-blue-700">
+              <div className="flex items-center gap-2 text-white">
                 <i className="fas fa-film text-xl"></i>
                 <span className="text-sm md:text-base">Videos & Images</span>
               </div>
               <div className="w-1 h-1 bg-blue-400 rounded-full"></div>
-              <div className="flex items-center gap-2 text-blue-700">
+              <div className="flex items-center gap-2 text-white">
                 <i className="fas fa-play-circle text-xl"></i>
                 <span className="text-sm md:text-base">Interactive Preview</span>
               </div>
