@@ -182,7 +182,7 @@ const Contact = () => {
               </motion.div>
 
               {/* ✅ FORMIK WRAPPER */}
-              <Formik
+             <Formik
   initialValues={{
     name: '',
     email: '',
@@ -194,7 +194,6 @@ const Contact = () => {
   onSubmit={async (values, { setSubmitting, resetForm }) => {
     setApiError(null);
 
-    // Map to backend format (just for clarity)
     const payload = {
       full_name: values.name,
       email: values.email,
@@ -203,189 +202,133 @@ const Contact = () => {
       vision: values.message
     };
 
-    // ✅ Just log to console for now
-    console.log('Cinemaz inquiry payload:', payload);
+    // 👀 1️⃣ Always log to console for testing
+    console.log("📌 Payload about to send:", payload);
 
-    // Simulate success UI
-    setShowSuccess(true);
-    resetForm();
+    try {
+      const res = await axios.post(
+        "https://jsonplaceholder.typicode.com/posts", // <-- dummy API for SUCCESS
+        payload,
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 5000);
+      // console.log("🎯 Response from backend:", res.data);
 
-    setSubmitting(false);
+      setShowSuccess(true);
+      resetForm();
+
+      setTimeout(() => setShowSuccess(false), 4000);
+
+    } catch (error) {
+      console.error("❌ Error submitting form:", error);
+      setApiError("Failed to send inquiry. Check console for details.");
+    } finally {
+      setSubmitting(false);
+    }
   }}
 >
+  {({ isSubmitting }) => (
+    <Form className="space-y-4 md:space-y-6 flex-1">
+      
+      {/* FULL NAME */}
+      <motion.div variants={itemVariants}>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+          Full Name *
+        </label>
+        <Field
+          type="text"
+          name="name"
+          className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Your name"
+        />
+        <ErrorMessage name="name" component="p" className="text-red-600 text-sm mt-1" />
+      </motion.div>
 
-                {({ isSubmitting }) => (
-                  <Form className="space-y-4 md:space-y-6 flex-1">
-                    <div className="grid grid-cols-1 gap-4 md:gap-6">
-                      <motion.div variants={itemVariants}>
-                        <label
-                          htmlFor="name"
-                          className="block text-sm font-medium text-gray-700 mb-2"
-                        >
-                          Full Name *
-                        </label>
-                        <Field
-                          type="text"
-                          id="name"
-                          name="name"
-                          className="w-full px-3 py-3 md:px-4 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 text-base"
-                          placeholder="Your name"
-                        />
-                        <ErrorMessage
-                          name="name"
-                          component="p"
-                          className="mt-1 text-sm text-red-600"
-                        />
-                      </motion.div>
+      {/* EMAIL */}
+      <motion.div variants={itemVariants}>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+          Email Address *
+        </label>
+        <Field
+          type="email"
+          name="email"
+          className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+          placeholder="your@email.com"
+        />
+        <ErrorMessage name="email" component="p" className="text-red-600 text-sm mt-1" />
+      </motion.div>
 
-                      <motion.div variants={itemVariants}>
-                        <label
-                          htmlFor="email"
-                          className="block text-sm font-medium text-gray-700 mb-2"
-                        >
-                          Email Address *
-                        </label>
-                        <Field
-                          type="email"
-                          id="email"
-                          name="email"
-                          className="w-full px-3 py-3 md:px-4 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 text-base"
-                          placeholder="your.email@example.com"
-                        />
-                        <ErrorMessage
-                          name="email"
-                          component="p"
-                          className="mt-1 text-sm text-red-600"
-                        />
-                      </motion.div>
-                    </div>
+      {/* PHONE + PROJECT TYPE */}
+      <div className="grid grid-cols-1 gap-4 md:gap-6">
+        <motion.div variants={itemVariants}>
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+            Phone Number
+          </label>
+          <Field
+            type="tel"
+            name="phone"
+            className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            placeholder="+91 98765 43210"
+          />
+        </motion.div>
 
-                    <div className="grid grid-cols-1 gap-4 md:gap-6">
-                      <motion.div variants={itemVariants}>
-                        <label
-                          htmlFor="phone"
-                          className="block text-sm font-medium text-gray-700 mb-2"
-                        >
-                          Phone Number
-                        </label>
-                        <Field
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          className="w-full px-3 py-3 md:px-4 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 text-base"
-                          placeholder="+91 98765 43210"
-                        />
-                        <ErrorMessage
-                          name="phone"
-                          component="p"
-                          className="mt-1 text-sm text-red-600"
-                        />
-                      </motion.div>
+        <motion.div variants={itemVariants}>
+          <label htmlFor="projectType" className="block text-sm font-medium text-gray-700 mb-2">
+            Project Type *
+          </label>
+          <Field
+            as="select"
+            name="projectType"
+            className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="">Select project type</option>
+            <option value="feature-film">Feature Film</option>
+            <option value="documentary">Documentary</option>
+            <option value="web-series">Web Series</option>
+            <option value="short-film">Short Film</option>
+            <option value="co-production">Co-Production</option>
+            <option value="other">Other</option>
+          </Field>
+          <ErrorMessage name="projectType" component="p" className="text-red-600 text-sm mt-1" />
+        </motion.div>
+      </div>
 
-                      <motion.div variants={itemVariants}>
-                        <label
-                          htmlFor="projectType"
-                          className="block text-sm font-medium text-gray-700 mb-2"
-                        >
-                          Project Type *
-                        </label>
-                        <Field
-                          as="select"
-                          id="projectType"
-                          name="projectType"
-                          className="w-full px-3 py-3 md:px-4 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 text-base"
-                        >
-                          <option value="">Select project type</option>
-                          <option value="feature-film">Feature Film</option>
-                          <option value="documentary">Documentary</option>
-                          <option value="web-series">Web Series</option>
-                          <option value="short-film">Short Film</option>
-                          <option value="co-production">Co-Production</option>
-                          <option value="other">Other</option>
-                        </Field>
-                        <ErrorMessage
-                          name="projectType"
-                          component="p"
-                          className="mt-1 text-sm text-red-600"
-                        />
-                      </motion.div>
-                    </div>
+      {/* MESSAGE */}
+      <motion.div variants={itemVariants}>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+          Your Vision *
+        </label>
+        <Field
+          as="textarea"
+          name="message"
+          rows="5"
+          className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500 resize-none"
+          placeholder="Tell us your vision..."
+        />
+        <ErrorMessage name="message" component="p" className="text-red-600 text-sm mt-1" />
+      </motion.div>
 
-                    <motion.div variants={itemVariants}>
-                      <label
-                        htmlFor="message"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
-                        Your Vision *
-                      </label>
-                      <Field
-                        as="textarea"
-                        id="message"
-                        name="message"
-                        rows="5"
-                        className="w-full px-3 py-3 md:px-4 md:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 resize-none text-base"
-                        placeholder="Tell us about your project, your vision, and what you hope to achieve..."
-                      />
-                      <ErrorMessage
-                        name="message"
-                        component="p"
-                        className="mt-1 text-sm text-red-600"
-                      />
-                    </motion.div>
+      {/* API ERROR */}
+      {apiError && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+          {apiError}
+        </motion.div>
+      )}
 
-                    {apiError && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700"
-                      >
-                        {apiError}
-                      </motion.div>
-                    )}
+      {/* SUBMIT BUTTON */}
+      <motion.button
+        variants={itemVariants}
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full bg-blue-600 text-white py-3 font-semibold rounded-lg hover:bg-blue-700 transition flex justify-center shadow-md"
+      >
+        {isSubmitting ? "Submitting..." : "Submit Your Project"}
+      </motion.button>
 
-                    <motion.button
-                      variants={itemVariants}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 disabled:from-blue-400 disabled:to-blue-500 text-white font-semibold py-3 md:py-4 px-6 rounded-lg transition-all duration-300 text-base md:text-lg flex items-center justify-center shadow-lg hover:shadow-xl"
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <svg
-                            className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                            ></circle>
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            ></path>
-                          </svg>
-                          Submitting...
-                        </>
-                      ) : (
-                        'Submit Your Project'
-                      )}
-                    </motion.button>
-                  </Form>
-                )}
-              </Formik>
+    </Form>
+  )}
+</Formik>
+
 
               {showSuccess && (
                 <motion.div
