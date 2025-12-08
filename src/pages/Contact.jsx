@@ -182,152 +182,152 @@ const Contact = () => {
               </motion.div>
 
               {/* ✅ FORMIK WRAPPER */}
-             <Formik
-  initialValues={{
-    name: '',
-    email: '',
-    phone: '',
-    projectType: '',
-    message: ''
-  }}
-  validationSchema={validationSchema}
-  onSubmit={async (values, { setSubmitting, resetForm }) => {
-    setApiError(null);
+              <Formik
+                initialValues={{
+                  name: '',
+                  email: '',
+                  phone: '',
+                  projectType: '',
+                  message: ''
+                }}
+                validationSchema={validationSchema}
+                onSubmit={async (values, { setSubmitting, resetForm }) => {
+                  setApiError(null);
 
-    const payload = {
-      full_name: values.name,
-      email: values.email,
-      phone_number: values.phone || null,
-      project_type: values.projectType,
-      vision: values.message
-    };
+                  const payload = {
+                    full_name: values.name,
+                    email: values.email,
+                    phone_number: values.phone || null,
+                    project_type: values.projectType,
+                    vision: values.message
+                  };
 
-    // 👀 1️⃣ Always log to console for testing
-    console.log("📌 Payload about to send:", payload);
+                  // 
+                  console.log("📌 Payload about to send:", payload);
 
-    try {
-      const res = await axios.post(
-        "https://jsonplaceholder.typicode.com/posts", // <-- dummy API for SUCCESS
-        payload,
-        { headers: { "Content-Type": "application/json" } }
-      );
+                  try {
+                    const res = await axios.post(
+                      "https://jsonplaceholder.typicode.com/posts", // <-- dummy API for SUCCESS
+                      payload,
+                      { headers: { "Content-Type": "application/json" } }
+                    );
 
-      // console.log("🎯 Response from backend:", res.data);
+                    // console.log("🎯 Response from backend:", res.data);
 
-      setShowSuccess(true);
-      resetForm();
+                    setShowSuccess(true);
+                    resetForm();
 
-      setTimeout(() => setShowSuccess(false), 4000);
+                    setTimeout(() => setShowSuccess(false), 4000);
 
-    } catch (error) {
-      console.error("❌ Error submitting form:", error);
-      setApiError("Failed to send inquiry. Check console for details.");
-    } finally {
-      setSubmitting(false);
-    }
-  }}
->
-  {({ isSubmitting }) => (
-    <Form className="space-y-4 md:space-y-6 flex-1">
-      
-      {/* FULL NAME */}
-      <motion.div variants={itemVariants}>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-          Full Name *
-        </label>
-        <Field
-          type="text"
-          name="name"
-          className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-          placeholder="Your name"
-        />
-        <ErrorMessage name="name" component="p" className="text-red-600 text-sm mt-1" />
-      </motion.div>
+                  } catch (error) {
+                    console.error("❌ Error submitting form:", error);
+                    setApiError("Failed to send inquiry. Check console for details.");
+                  } finally {
+                    setSubmitting(false);
+                  }
+                }}
+              >
+                {({ isSubmitting }) => (
+                  <Form className="space-y-4 md:space-y-6 flex-1">
 
-      {/* EMAIL */}
-      <motion.div variants={itemVariants}>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-          Email Address *
-        </label>
-        <Field
-          type="email"
-          name="email"
-          className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-          placeholder="your@email.com"
-        />
-        <ErrorMessage name="email" component="p" className="text-red-600 text-sm mt-1" />
-      </motion.div>
+                    {/* FULL NAME */}
+                    <motion.div variants={itemVariants}>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                        Full Name *
+                      </label>
+                      <Field
+                        type="text"
+                        name="name"
+                        className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Your name"
+                      />
+                      <ErrorMessage name="name" component="p" className="text-red-600 text-sm mt-1" />
+                    </motion.div>
 
-      {/* PHONE + PROJECT TYPE */}
-      <div className="grid grid-cols-1 gap-4 md:gap-6">
-        <motion.div variants={itemVariants}>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-            Phone Number
-          </label>
-          <Field
-            type="tel"
-            name="phone"
-            className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-            placeholder="+91 98765 43210"
-          />
-        </motion.div>
+                    {/* EMAIL */}
+                    <motion.div variants={itemVariants}>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                        Email Address *
+                      </label>
+                      <Field
+                        type="email"
+                        name="email"
+                        className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="your@email.com"
+                      />
+                      <ErrorMessage name="email" component="p" className="text-red-600 text-sm mt-1" />
+                    </motion.div>
 
-        <motion.div variants={itemVariants}>
-          <label htmlFor="projectType" className="block text-sm font-medium text-gray-700 mb-2">
-            Project Type *
-          </label>
-          <Field
-            as="select"
-            name="projectType"
-            className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="">Select project type</option>
-            <option value="feature-film">Feature Film</option>
-            <option value="documentary">Documentary</option>
-            <option value="web-series">Web Series</option>
-            <option value="short-film">Short Film</option>
-            <option value="co-production">Co-Production</option>
-            <option value="other">Other</option>
-          </Field>
-          <ErrorMessage name="projectType" component="p" className="text-red-600 text-sm mt-1" />
-        </motion.div>
-      </div>
+                    {/* PHONE + PROJECT TYPE */}
+                    <div className="grid grid-cols-1 gap-4 md:gap-6">
+                      <motion.div variants={itemVariants}>
+                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                          Phone Number
+                        </label>
+                        <Field
+                          type="tel"
+                          name="phone"
+                          className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="+91 98765 43210"
+                        />
+                      </motion.div>
 
-      {/* MESSAGE */}
-      <motion.div variants={itemVariants}>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-          Your Vision *
-        </label>
-        <Field
-          as="textarea"
-          name="message"
-          rows="5"
-          className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500 resize-none"
-          placeholder="Tell us your vision..."
-        />
-        <ErrorMessage name="message" component="p" className="text-red-600 text-sm mt-1" />
-      </motion.div>
+                      <motion.div variants={itemVariants}>
+                        <label htmlFor="projectType" className="block text-sm font-medium text-gray-700 mb-2">
+                          Project Type *
+                        </label>
+                        <Field
+                          as="select"
+                          name="projectType"
+                          className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                        >
+                          <option value="">Select project type</option>
+                          <option value="feature-film">Feature Film</option>
+                          <option value="documentary">Documentary</option>
+                          <option value="web-series">Web Series</option>
+                          <option value="short-film">Short Film</option>
+                          <option value="co-production">Co-Production</option>
+                          <option value="other">Other</option>
+                        </Field>
+                        <ErrorMessage name="projectType" component="p" className="text-red-600 text-sm mt-1" />
+                      </motion.div>
+                    </div>
 
-      {/* API ERROR */}
-      {apiError && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
-          {apiError}
-        </motion.div>
-      )}
+                    {/* MESSAGE */}
+                    <motion.div variants={itemVariants}>
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                        Your Vision *
+                      </label>
+                      <Field
+                        as="textarea"
+                        name="message"
+                        rows="5"
+                        className="w-full px-3 py-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500 resize-none"
+                        placeholder="Tell us your vision..."
+                      />
+                      <ErrorMessage name="message" component="p" className="text-red-600 text-sm mt-1" />
+                    </motion.div>
 
-      {/* SUBMIT BUTTON */}
-      <motion.button
-        variants={itemVariants}
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full bg-blue-600 text-white py-3 font-semibold rounded-lg hover:bg-blue-700 transition flex justify-center shadow-md"
-      >
-        {isSubmitting ? "Submitting..." : "Submit Your Project"}
-      </motion.button>
+                    {/* API ERROR */}
+                    {apiError && (
+                      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                        {apiError}
+                      </motion.div>
+                    )}
 
-    </Form>
-  )}
-</Formik>
+                    {/* SUBMIT BUTTON */}
+                    <motion.button
+                      variants={itemVariants}
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-blue-600 text-white py-3 font-semibold rounded-lg hover:bg-blue-700 transition flex justify-center shadow-md"
+                    >
+                      {isSubmitting ? "Submitting..." : "Submit Your Project"}
+                    </motion.button>
+
+                  </Form>
+                )}
+              </Formik>
 
 
               {showSuccess && (
@@ -580,82 +580,82 @@ const Contact = () => {
       </section>
 
       {/* FAQ Section */}
-     <section
-  ref={faqRef}
-  className="py-12 md:py-20 bg-gradient-to-br from-blue-50 to-gray-50"
->
-  <div className="container mx-auto px-4 sm:px-6">
-    <motion.div
-      variants={containerVariants}
-      initial="hidden"
-      animate={isFaqInView ? 'visible' : 'hidden'}
-      className="max-w-4xl mx-auto"
-    >
-      <motion.div
-        variants={itemVariants}
-        className="text-center mb-12 md:mb-16"
+      <section
+        ref={faqRef}
+        className="py-12 md:py-20 bg-gradient-to-br from-blue-50 to-gray-50"
       >
-        <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4 md:mb-6">
-          Frequently Asked Questions
-        </h2>
-        <div className="w-20 h-1 md:w-24 md:h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full"></div>
-        <p className="text-base sm:text-lg md:text-xl text-gray-600 mt-6 max-w-2xl mx-auto px-2 sm:px-4">
-          Get answers to common questions about working with us
-        </p>
-      </motion.div>
-
-      <div className="space-y-4 md:space-y-6">
-        {faqs.map((faq, index) => (
+        <div className="container mx-auto px-4 sm:px-6">
           <motion.div
-            key={index}
-            variants={cardVariants}
-            whileHover={{ y: -2 }}
-            className="border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg hover:border-blue-300 transition-all duration-300 bg-white"
+            variants={containerVariants}
+            initial="hidden"
+            animate={isFaqInView ? 'visible' : 'hidden'}
+            className="max-w-4xl mx-auto"
           >
-            <button
-              className="w-full text-left p-4 md:p-6 flex justify-between items-center transition-colors duration-200 hover:bg-blue-50"
-              onClick={() => toggleFaq(index)}
-            >
-              <h3 className="font-semibold text-blue-800 text-base md:text-lg pr-4">
-                {faq.question}
-              </h3>
-              <motion.svg
-                animate={{ rotate: openFaq === index ? 180 : 0 }}
-                className="w-5 h-5 text-blue-600 flex-shrink-0"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </motion.svg>
-            </button>
-            
             <motion.div
-              initial={false}
-              animate={{ 
-                height: openFaq === index ? "auto" : 0,
-                opacity: openFaq === index ? 1 : 0
-              }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="overflow-hidden"
+              variants={itemVariants}
+              className="text-center mb-12 md:mb-16"
             >
-              <div className="px-4 md:px-6 pb-4 md:pb-6">
-                <p className="text-gray-700 leading-relaxed text-sm md:text-base">
-                  {faq.answer}
-                </p>
-              </div>
+              <h2 className="text-2xl md:text-4xl font-bold text-blue-800 mb-4 md:mb-6">
+                Frequently Asked Questions
+              </h2>
+              <div className="w-20 h-1 md:w-24 md:h-1 bg-gradient-to-r from-blue-500 to-blue-600 mx-auto rounded-full"></div>
+              <p className="text-base sm:text-lg md:text-xl text-gray-600 mt-6 max-w-2xl mx-auto px-2 sm:px-4">
+                Get answers to common questions about working with us
+              </p>
             </motion.div>
+
+            <div className="space-y-4 md:space-y-6">
+              {faqs.map((faq, index) => (
+                <motion.div
+                  key={index}
+                  variants={cardVariants}
+                  whileHover={{ y: -2 }}
+                  className="border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg hover:border-blue-300 transition-all duration-300 bg-white"
+                >
+                  <button
+                    className="w-full text-left p-4 md:p-6 flex justify-between items-center transition-colors duration-200 hover:bg-blue-50"
+                    onClick={() => toggleFaq(index)}
+                  >
+                    <h3 className="font-semibold text-blue-800 text-base md:text-lg pr-4">
+                      {faq.question}
+                    </h3>
+                    <motion.svg
+                      animate={{ rotate: openFaq === index ? 180 : 0 }}
+                      className="w-5 h-5 text-blue-600 flex-shrink-0"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </motion.svg>
+                  </button>
+
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      height: openFaq === index ? "auto" : 0,
+                      opacity: openFaq === index ? 1 : 0
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-4 md:px-6 pb-4 md:pb-6">
+                      <p className="text-gray-700 leading-relaxed text-sm md:text-base">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
-        ))}
-      </div>
-    </motion.div>
-  </div>
-</section>
+        </div>
+      </section>
     </div>
   )
 }

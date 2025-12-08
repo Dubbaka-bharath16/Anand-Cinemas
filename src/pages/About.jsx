@@ -2,6 +2,69 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useAnimation } from '../hooks/useAnimation';
+import {
+  Film,
+  Award,
+  Clock,
+  Users,
+  Star,
+  Sparkles,
+  Heart,
+  Target,
+  Globe,
+  Rocket,
+  Lightbulb,
+  Palette,
+  BookOpen,
+  Camera,
+  PenTool,
+  Zap,
+  Gem,
+  Compass,
+  TrendingUp,
+  Target as TargetIcon,
+  Eye,
+  MessageSquare,
+  Send,
+  Mail,
+  Phone,
+  MapPin,
+  User,
+  Shield,
+  CheckCircle,
+  ChevronRight,
+  Play,
+  ExternalLink,
+  Instagram,
+  Twitter,
+  Facebook,
+  Youtube,
+  Linkedin,
+  Calendar,
+  Briefcase,
+  Coffee,
+  Music,
+  CameraOff,
+  Video,
+  Mic,
+  Headphones,
+  Code,
+  Cloud,
+  Sun,
+  Moon,
+  CloudRain,
+  Wind,
+  CloudSnow,
+  CloudLightning,
+  Droplets,
+  Thermometer,
+  Sunrise,
+  Sunset,
+  CloudSun,
+  CloudMoon,
+  Cloudy,
+  Navigation
+} from 'lucide-react';
 
 const About = () => {
   useAnimation();
@@ -15,19 +78,19 @@ const About = () => {
 
   const creativeApproach = [
     {
-      icon: '🎭',
+      icon: <Film className="w-8 h-8" />,
       title: 'Authentic Narratives',
       description: 'We craft stories that resonate with genuine human emotions and real-life experiences, creating connections that last beyond the screen.',
       accent: 'text-blue-600'
     },
     {
-      icon: '💫',
+      icon: <Sparkles className="w-8 h-8" />,
       title: 'Creative Innovation',
       description: 'Embracing new storytelling techniques and technologies to deliver unique perspectives that captivate and inspire audiences.',
       accent: 'text-amber-600'
     },
     {
-      icon: '🤝',
+      icon: <Heart className="w-8 h-8" />,
       title: 'Collaborative Spirit',
       description: 'Bringing together diverse creative talents to build something greater than the sum of its parts through shared vision and expertise.',
       accent: 'text-purple-600'
@@ -57,7 +120,7 @@ const About = () => {
 
   const studioPrinciples = [
     {
-      icon: '⭐',
+      icon: <Star className="w-8 h-8" />,
       title: 'Artistic Excellence',
       description: 'Every frame we create is a testament to our commitment to cinematic artistry. We believe in pushing creative boundaries while maintaining the highest standards of technical precision and emotional authenticity.',
       bgColor: 'bg-amber-50',
@@ -65,7 +128,7 @@ const About = () => {
       iconColor: 'text-amber-600'
     },
     {
-      icon: '💎',
+      icon: <Gem className="w-8 h-8" />,
       title: 'Creative Integrity',
       description: 'We stay true to the heart of every story, maintaining artistic vision and ethical standards while creating commercially successful content that resonates with audiences worldwide.',
       bgColor: 'bg-blue-50',
@@ -73,7 +136,7 @@ const About = () => {
       iconColor: 'text-blue-600'
     },
     {
-      icon: '🌍',
+      icon: <Globe className="w-8 h-8" />,
       title: 'Global Perspective',
       description: 'Our stories transcend cultural boundaries while celebrating local authenticity. We create content that speaks universal truths while honoring diverse perspectives and experiences.',
       bgColor: 'bg-purple-50',
@@ -81,7 +144,7 @@ const About = () => {
       iconColor: 'text-purple-600'
     },
     {
-      icon: '🚀',
+      icon: <Rocket className="w-8 h-8" />,
       title: 'Forward Thinking',
       description: 'We continuously evolve our craft, embracing emerging technologies and innovative storytelling formats to stay at the forefront of cinematic expression and audience engagement.',
       bgColor: 'bg-green-50',
@@ -98,7 +161,7 @@ const About = () => {
         'Collaborate on diverse genres from drama to documentary',
         'Access to our network of writers and directors'
       ],
-      icon: '✍️',
+      icon: <PenTool className="w-8 h-8" />,
       color: 'text-purple-600',
       bgColor: 'bg-purple-50'
     },
@@ -109,7 +172,7 @@ const About = () => {
         'Experiment with innovative visual storytelling techniques',
         'Collaborate with award-winning cinematographers'
       ],
-      icon: '🎨',
+      icon: <Palette className="w-8 h-8" />,
       color: 'text-blue-600',
       bgColor: 'bg-blue-50'
     },
@@ -120,7 +183,7 @@ const About = () => {
         'Portfolio-building projects with professional guidance',
         'Networking with industry leaders and festivals'
       ],
-      icon: '🌟',
+      icon: <Star className="w-8 h-8" />,
       color: 'text-amber-600',
       bgColor: 'bg-amber-50'
     }
@@ -186,17 +249,22 @@ const About = () => {
               className="mb-8 md:mb-10"
             >
               <div className="inline-block bg-white/10 backdrop-blur-sm rounded-2xl p-4 md:p-8 border border-white/20 shadow-2xl mx-2">
-                <div className="text-2xl sm:text-3xl md:text-5xl font-bold text-yellow-300 mb-4 md:mb-5 font-sans leading-tight">
-                  Anand Cinemaz
+                <div className="flex items-center justify-center gap-3 mb-4 md:mb-5">
+                  {/* <Camera className="w-8 h-8 md:w-12 md:h-12 text-yellow-300" /> */}
+                  <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-yellow-300 font-sans leading-tight">
+                    Anand Cinemaz
+                  </h1>
                 </div>
                 
-                <div className="text-base sm:text-lg md:text-2xl text-blue-100 italic mb-4 md:mb-5">
+                <div className="text-base sm:text-lg md:text-2xl text-blue-100 italic mb-4 md:mb-5 flex items-center justify-center gap-2">
+                  {/* <BookOpen className="w-5 h-5 md:w-6 md:h-6" /> */}
                   "Where every frame tells a story"
                 </div>
                 
                 <div className="w-16 h-1 bg-gradient-to-r from-yellow-400 to-orange-400 mx-auto rounded-full mb-4 md:mb-5"></div>
                 
-                <div className="text-sm sm:text-base md:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed px-2">
+                <div className="text-sm sm:text-base md:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed px-2 flex items-center justify-center gap-2">
+                  {/* <Video className="w-5 h-5" /> */}
                   Creating cinematic experiences that inspire, educate, and provoke meaningful conversations
                 </div>
               </div>
@@ -233,8 +301,9 @@ const About = () => {
                 <motion.button 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-orange-500 text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl hover:bg-orange-600 transition-all duration-300 text-sm sm:text-base w-full sm:w-auto"
+                  className="bg-orange-500 text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl hover:bg-orange-600 transition-all duration-300 text-sm sm:text-base w-full sm:w-auto flex items-center justify-center gap-2"
                 >
+                  <Eye className="w-4 h-4" />
                   Explore Our Work
                 </motion.button>
               </Link>
@@ -242,8 +311,9 @@ const About = () => {
                 <motion.button 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="border-2 border-white text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-800 transition-all duration-300 text-sm sm:text-base w-full sm:w-auto"
+                  className="border-2 border-white text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-800 transition-all duration-300 text-sm sm:text-base w-full sm:w-auto flex items-center justify-center gap-2"
                 >
+                  <Users className="w-4 h-4" />
                   Join Our Creative Family
                 </motion.button>
               </Link>
@@ -284,8 +354,13 @@ const About = () => {
                       className="absolute left-4 md:left-6 bottom-4 md:bottom-6 transform group-hover:scale-110 transition-transform duration-300"
                     >
                       <div className="bg-white/95 backdrop-blur-sm px-3 md:px-4 py-1 md:py-2 rounded-full shadow-lg text-xs md:text-sm font-semibold text-gray-700 border border-gray-100 group-hover:border-orange-200 group-hover:shadow-xl transition-all duration-300">
-                        <div className="text-xs text-gray-500 group-hover:text-orange-500 transition-colors">Founder & Creative Director</div>
-                        <div className="uppercase text-xs tracking-wide group-hover:text-blue-600 transition-colors">ANAND CINEMAZ</div>
+                        <div className="text-xs text-gray-500 group-hover:text-orange-500 transition-colors flex items-center gap-1">
+                          <User className="w-3 h-3" />
+                          Founder & Creative Director
+                        </div>
+                        <div className="uppercase text-xs tracking-wide group-hover:text-blue-600 transition-colors">
+                          ANAND CINEMAZ
+                        </div>
                       </div>
                     </motion.div>
                   </div>
@@ -298,7 +373,8 @@ const About = () => {
                     className="mt-6 group"
                   >
                     <div className="bg-gradient-to-r from-blue-50/50 to-orange-50/50 rounded-xl p-4 md:p-6 border-l-4 border-orange-500 shadow-lg transition-all duration-300 group-hover:shadow-xl group-hover:border-orange-600 mx-2 sm:mx-0">
-                      <p className="text-gray-700 italic text-sm sm:text-base md:text-lg leading-relaxed text-center">
+                      <p className="text-gray-700 italic text-sm sm:text-base md:text-lg leading-relaxed text-center flex items-start gap-2">
+                        <MessageSquare className="w-5 h-5 text-orange-500 mt-1 flex-shrink-0" />
                         "We transform stories into cinematic legacies. Every film we create is backed by 
                         complete creative integrity, artistic excellence, and a vision for meaningful 
                         storytelling. Our productions aren't just entertainment; they're emotional 
@@ -319,22 +395,30 @@ const About = () => {
               >
                 <div className="w-full">
                   <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 text-center lg:text-left">Anand</h2>
-                  <p className="text-base sm:text-lg md:text-xl text-orange-500 font-semibold mt-1 text-center lg:text-left">Founder & Creative Director</p>
+                  <p className="text-base sm:text-lg md:text-xl text-orange-500 font-semibold mt-1 text-center lg:text-left flex items-center gap-2">
+                    <Briefcase className="w-5 h-5" />
+                    Founder & Creative Director
+                  </p>
 
                   <div className="mt-4 md:mt-6 text-gray-700 space-y-4 w-full p-3">
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed flex items-start gap-2">
+                      <Lightbulb className="w-5 h-5 text-blue-500 mt-1 flex-shrink-0" />
                       A visionary leader with an unwavering commitment to cinematic excellence, Anand founded
                       Anand Cinemaz with a simple yet powerful vision: to create meaningful films that 
                       combine artistic integrity with social impact.
                     </p>
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed flex items-start gap-2">
+                      <Target className="w-5 h-5 text-orange-500 mt-1 flex-shrink-0" />
                       With a passion for storytelling that drives positive change, he has built
                       a legacy of films that challenge perspectives and spark important
                       conversations while maintaining the highest creative standards.
                     </p>
                     
                     <div className="bg-blue-50 rounded-lg p-4 md:p-6 mt-4 border-l-4 border-blue-500">
-                      <h4 className="font-bold text-blue-800 text-base sm:text-lg md:text-xl mb-2">About Anand Cinemaz</h4>
+                      <h4 className="font-bold text-blue-800 text-base sm:text-lg md:text-xl mb-2 flex items-center gap-2">
+                        <Shield className="w-5 h-5" />
+                        About Anand Cinemaz
+                      </h4>
                       <p className="text-gray-700 text-xs sm:text-sm md:text-base">
                         Under Anand's leadership, Anand Cinemaz has emerged as a trusted name in meaningful cinema, 
                         transforming stories into powerful visual experiences. With years of expertise, 
@@ -352,10 +436,10 @@ const About = () => {
                     className="mt-8 w-full"
                   >
                     <div className="grid grid-cols-2 gap-3 md:gap-4 w-full max-w-md mx-auto lg:mx-0">
-                      <EnhancedStatCard title="50+" subtitle="Films" delay={0} />
-                      <EnhancedStatCard title="25+" subtitle="Awards" delay={0.1} />
-                      <EnhancedStatCard title="15+" subtitle="Years" delay={0.2} />
-                      <EnhancedStatCard title="100+" subtitle="Team" delay={0.3} />
+                      <EnhancedStatCard icon={<Film className="w-4 h-4" />} title="50+" subtitle="Films" delay={0} />
+                      <EnhancedStatCard icon={<Award className="w-4 h-4" />} title="25+" subtitle="Awards" delay={0.1} />
+                      <EnhancedStatCard icon={<Clock className="w-4 h-4" />} title="15+" subtitle="Years" delay={0.2} />
+                      <EnhancedStatCard icon={<Users className="w-4 h-4" />} title="100+" subtitle="Team" delay={0.3} />
                     </div>
                   </motion.div>
                 </div>
@@ -391,13 +475,15 @@ const About = () => {
                   whileHover={{ y: -8, scale: 1.02 }}
                   className="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-200 hover:shadow-xl transition-all duration-300 group"
                 >
-                  <div className="text-4xl md:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {approach.icon}
+                  <div className="text-4xl md:text-5xl mb-4 group-hover:scale-110 transition-transform duration-300 flex justify-center">
+                    <div className={`${approach.accent}`}>
+                      {approach.icon}
+                    </div>
                   </div>
-                  <h3 className={`text-lg sm:text-xl md:text-2xl font-bold mb-4 ${approach.accent} group-hover:${approach.accent.replace('text-', 'text-')}`}>
+                  <h3 className={`text-lg sm:text-xl md:text-2xl font-bold mb-4 ${approach.accent} text-center`}>
                     {approach.title}
                   </h3>
-                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed group-hover:text-gray-700 transition-colors">
+                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed group-hover:text-gray-700 transition-colors text-center">
                     {approach.description}
                   </p>
                 </motion.div>
@@ -441,7 +527,7 @@ const About = () => {
                 `}
               >
                 <div className="flex-shrink-0 flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-lg">
-                  <div className={`text-2xl md:text-4xl ${principle.iconColor}`}>
+                  <div className={principle.iconColor}>
                     {principle.icon}
                   </div>
                 </div>
@@ -475,7 +561,8 @@ const About = () => {
                   variants={cardVariants}
                   className="inline-flex items-center justify-center md:justify-start gap-2 bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-medium mb-6"
                 >
-                  <span>🎯</span> Our Purpose
+                  <TargetIcon className="w-4 h-4" />
+                  Our Purpose
                 </motion.div>
                 <h2 className="text-2xl md:text-4xl font-bold mb-6">Studio Mission</h2>
                 <p className="text-slate-300 mb-6 leading-relaxed text-base md:text-lg">
@@ -503,7 +590,8 @@ const About = () => {
                   variants={cardVariants}
                   className="inline-flex items-center justify-center md:justify-start gap-2 bg-amber-500 text-white px-4 py-2 rounded-full text-sm font-medium mb-6"
                 >
-                  <span>🔭</span> Future Vision
+                  <Compass className="w-4 h-4" />
+                  Future Vision
                 </motion.div>
                 <h2 className="text-2xl md:text-4xl font-bold mb-6">Studio Vision</h2>
                 <p className="text-slate-300 mb-6 leading-relaxed text-base md:text-lg">
@@ -560,7 +648,9 @@ const About = () => {
                 className="group bg-white p-6 md:p-8 rounded-2xl border border-slate-200 hover:border-amber-300 transition-all duration-300 hover:shadow-xl"
               >
                 <div className={`${opportunity.bgColor} w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  <span className={`text-2xl ${opportunity.color}`}>{opportunity.icon}</span>
+                  <div className={opportunity.color}>
+                    {opportunity.icon}
+                  </div>
                 </div>
 
                 <h3 className="text-lg md:text-2xl font-bold text-slate-800 mb-6 group-hover:text-amber-600 transition-colors duration-300">
@@ -623,8 +713,9 @@ const About = () => {
                     <motion.button 
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="bg-orange-500 text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-orange-600 transition-all duration-300 text-sm sm:text-base w-full sm:w-auto"
+                      className="bg-orange-500 text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-orange-600 transition-all duration-300 text-sm sm:text-base w-full sm:w-auto flex items-center justify-center gap-2"
                     >
+                      <Eye className="w-4 h-4" />
                       Explore our Projects
                     </motion.button>
                   </Link>
@@ -632,8 +723,9 @@ const About = () => {
                     <motion.button 
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="border border-white text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300 text-sm sm:text-base w-full sm:w-auto"
+                      className="border border-white text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-white hover:text-slate-900 transition-all duration-300 text-sm sm:text-base w-full sm:w-auto flex items-center justify-center gap-2"
                     >
+                      <Send className="w-4 h-4" />
                       Contact Our Team
                     </motion.button>
                   </Link>
@@ -709,8 +801,9 @@ const About = () => {
                 <motion.button 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg text-sm sm:text-base w-full sm:w-auto"
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg text-sm sm:text-base w-full sm:w-auto flex items-center justify-center gap-2"
                 >
+                  <Film className="w-4 h-4" />
                   Explore Our Films
                 </motion.button>
               </Link>
@@ -718,8 +811,9 @@ const About = () => {
                 <motion.button 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="border-2 border-white text-white hover:bg-white hover:text-blue-800 px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg text-sm sm:text-base w-full sm:w-auto"
+                  className="border-2 border-white text-white hover:bg-white hover:text-blue-800 px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg text-sm sm:text-base w-full sm:w-auto flex items-center justify-center gap-2"
                 >
+                  <Send className="w-4 h-4" />
                   Get In Touch
                 </motion.button>
               </Link>
@@ -734,7 +828,7 @@ const About = () => {
 export default About;
 
 /* Enhanced Stat Card Component */
-function EnhancedStatCard({ title, subtitle, delay = 0 }) {
+function EnhancedStatCard({ icon, title, subtitle, delay = 0 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20, scale: 0.95 }}
@@ -749,10 +843,15 @@ function EnhancedStatCard({ title, subtitle, delay = 0 }) {
       className="group"
     >
       <div className="bg-white rounded-xl shadow-lg p-3 sm:p-4 md:p-5 flex flex-col items-start justify-center ring-1 ring-gray-100 hover:ring-2 hover:ring-orange-200 hover:shadow-xl transition-all duration-300">
-        <div className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300 transform group-hover:scale-110">
-          {title}
+        <div className="flex items-center gap-2">
+          <div className="text-blue-500">
+            {icon}
+          </div>
+          <div className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300">
+            {title}
+          </div>
         </div>
-        <div className="text-xs text-gray-400 mt-1 group-hover:text-gray-600 transition-colors duration-300">
+        <div className="text-xs text-gray-400 mt-1 group-hover:text-gray-600 transition-colors duration-300 ml-7">
           {subtitle}
         </div>
         
