@@ -114,9 +114,9 @@ const Footer = () => {
     <>
       <footer className="light-navy text-white pt-10 pb-6">
         <div className="container mx-auto px-4">
-          {/* Top grid: stacks on mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 mb-8">
-          
+          {/* Top grid: now 3 columns instead of 4 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 mb-8">
+
             <div className="footer-about">
               <div className="flex items-center space-x-3 mb-3">
                 {/* Founder Logo */}
@@ -146,10 +146,11 @@ const Footer = () => {
                   </Link>
                 </div>
               </div>
-              <p className="text-white mb-4 text-sm sm:text-base leading-relaxed">
-                Creating meaningful, impactful, and high-quality cinematic content
-                that blends creativity with purpose.
-              </p>
+              <p className="text-white mb-4 text-sm sm:text-sm leading-relaxed">
+  Creating meaningful, impactful, and high-quality cinematic content
+  that blends creativity with purpose. We craft films that entertain,
+  inspire, and carry strong social messages.
+</p>
 
               <div className="social-links flex items-center space-x-3">
                 {[
@@ -172,16 +173,16 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Quick Links  */}
-            <div className="footer-links ml-4 md:ml-8">
+            {/* Quick Links - Now takes more space */}
+            <div className="footer-links ml-0 md:ml-8 lg:ml-0">
               <h3 className="text-white text-lg sm:text-xl font-bold mb-4">
                 Quick Links
               </h3>
-              <ul className="">
+              <ul className="space-y-1">
                 {[
                   { path: "/", label: "Home" },
                   { path: "/about", label: "About" },
-                  { path: "/projects", label: "Projects" },
+                  // { path: "/projects", label: "Projects" },
                   { path: "/gallery", label: "Gallery" },
                   { path: "/contact", label: "Contact" },
                 ].map((link) => (
@@ -197,35 +198,12 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Our Films */}
-            <div className="footer-links">
-              <h3 className="text-white text-lg sm:text-xl font-bold mb-4">
-                Our Films
-              </h3>
-              <ul className="space-y-1 text-sm">
-                {[
-                  { title: "Echoes of Silence", year: "2023" },
-                  { title: "Shades of Truth", year: "2022" },
-                  { title: "The Last Light", year: "2021" },
-                  { title: "Urban Rhythms", year: "2020" },
-                  { title: "Project Uprising", year: "Coming 2024" },
-                ].map((film) => (
-                  <li key={film.title}>
-                    <span className="text-white block py-1 transition-colors duration-200 hover:text-sunrise-gold">
-                      <span className="font-medium">{film.title}</span>
-                      <span className="text-sm text-gray-300 ml-2">({film.year})</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Contact & Legal */}
+            {/* Contact & Legal - Now takes the space where Our Films was */}
             <div className="footer-links">
               <h3 className="text-white text-lg sm:text-xl font-bold mb-4">
                 Connect
               </h3>
-              <div className="space-y-3 mb-4 text-sm">
+              <div className="space-y-3 mb-6 text-sm">
                 <div className="flex items-start space-x-3">
                   <i className="fas fa-map-marker-alt text-sunrise-gold mt-1" />
                   <span className="text-gray-300">
@@ -243,45 +221,49 @@ const Footer = () => {
                   <span className="text-gray-300">info@anandcinemaz.com</span>
                 </div>
               </div>
-
-              <div className="legal-links">
-                <h4 className="text-white font-bold mb-3">Legal</h4>
-                <div className="flex flex-wrap gap-3 text-sm">
-                  <button
-                    onClick={() => openModal('privacy')}
-                    className="text-gray-400 no-underline transition-colors duration-200 hover:text-sunrise-gold cursor-pointer bg-transparent border-none"
-                  >
-                    Privacy Policy
-                  </button>
-                  <button
-                    onClick={() => openModal('terms')}
-                    className="text-gray-400 no-underline transition-colors duration-200 hover:text-sunrise-gold cursor-pointer bg-transparent border-none"
-                  >
-                    Terms
-                  </button>
-                  <button
-                    onClick={() => openModal('copyright')}
-                    className="text-gray-400 no-underline transition-colors duration-200 hover:text-sunrise-gold cursor-pointer bg-transparent border-none"
-                  >
-                    Copyright
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
 
-          {/* Copyright & Developed by */}
+          {/* Copyright & Legal & Developed by */}
           <div className="copyright pt-3 border-t border-white border-opacity-10">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-2">
-              {/* Left Side */}
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4">
+
+              {/* LEFT */}
               <p className="text-gray-400 text-sm text-center md:text-left">
-                &copy; {currentYear} Anand Cinemaz Studios. All rights reserved.{" "}
-               
+                &copy; {currentYear} Anand Cinemaz Studios. All rights reserved.
               </p>
 
-              {/* Right Side - Developed By */}
-              <p className="text-gray-400 text-sm text-center md:text-right mr-6">
-                ©Designed by{" "}
+              {/* CENTER — LEGAL */}
+              <div className="flex justify-center items-center gap-4 text-sm">
+                <button
+                  onClick={() => openModal("privacy")}
+                  className="text-gray-400 hover:text-sunrise-gold transition-colors duration-200 bg-transparent border-none"
+                >
+                  Privacy Policy
+                </button>
+
+                <span className="text-gray-600">|</span>
+
+                <button
+                  onClick={() => openModal("terms")}
+                  className="text-gray-400 hover:text-sunrise-gold transition-colors duration-200 bg-transparent border-none"
+                >
+                  Terms
+                </button>
+
+                <span className="text-gray-600">|</span>
+
+                <button
+                  onClick={() => openModal("copyright")}
+                  className="text-gray-400 hover:text-sunrise-gold transition-colors duration-200 bg-transparent border-none"
+                >
+                  Copyright
+                </button>
+              </div>
+
+              {/* RIGHT */}
+              <p className="text-gray-400 text-sm text-center md:text-right">
+                Designed by{" "}
                 <a
                   href="https://designcareermetrics.com/"
                   target="_blank"
@@ -291,8 +273,10 @@ const Footer = () => {
                   Design Career Metrics
                 </a>
               </p>
+
             </div>
           </div>
+
         </div>
       </footer>
 
@@ -316,7 +300,7 @@ const Footer = () => {
 
             {/* Modal Content - Scrollable */}
             <div className="flex-1 p-6 overflow-y-auto border-t border-gray-100">
-              <div 
+              <div
                 dangerouslySetInnerHTML={{ __html: modalContent[activeModal].content }}
                 className="prose prose-sm max-w-none"
               />
