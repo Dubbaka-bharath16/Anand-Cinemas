@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
- 
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
- 
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 30);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
- 
+
   const navItems = [
     { path: "/", label: "Home" },
     { path: "/about", label: "About" },
@@ -19,9 +19,9 @@ const Header = () => {
     { path: "/gallery", label: "Gallery" },
     { path: "/contact", label: "Contact" },
   ];
- 
+
   const isActiveLink = (path) => location.pathname === path;
- 
+
   return (
     <header
       className={`fixed w-full top-0 z-40 transition-all duration-300
@@ -40,7 +40,7 @@ const Header = () => {
                 className="w-full h-full object-cover object-top"
               />
             </div>
- 
+
             <div className="flex flex-col items-start">
               <div className="flex items-center space-x-2">
                 <img
@@ -59,24 +59,23 @@ const Header = () => {
               </div>
             </div>
           </Link>
- 
+
           {/* Desktop Navigation - Increased Size */}
           <nav className="hidden lg:flex items-center space-x-3">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-4 py-2.5 rounded-lg text-base font-semibold transition-all duration-200 ${
-                  isActiveLink(item.path)
+                className={`px-4 py-2.5 rounded-lg text-base font-semibold transition-all duration-200 ${isActiveLink(item.path)
                     ? "text-blue-700 bg-blue-100 border border-blue-200"
                     : "text-blue-800 hover:bg-blue-50 hover:text-blue-700"
-                }`}
+                  }`}
               >
                 {item.label}
               </Link>
             ))}
           </nav>
- 
+
           {/* Mobile menu button - Improved Size */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -113,7 +112,7 @@ const Header = () => {
             )}
           </button>
         </div>
- 
+
         {/* Mobile Menu - Improved Alignment */}
         {isMenuOpen && (
           <div className="lg:hidden border-t border-gray-200 pb-4">
@@ -123,11 +122,10 @@ const Header = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${
-                    isActiveLink(item.path)
+                  className={`block px-4 py-3 text-base font-medium rounded-lg transition-all duration-200 ${isActiveLink(item.path)
                       ? "bg-blue-100 text-blue-700 border border-blue-200"
                       : "text-blue-800 hover:bg-blue-50 hover:text-blue-700"
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </Link>
@@ -139,5 +137,5 @@ const Header = () => {
     </header>
   );
 };
- 
+
 export default Header;

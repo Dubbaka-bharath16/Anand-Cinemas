@@ -130,11 +130,11 @@ const Footer = () => {
                   </div>
 
                   {/* Company Logo */}
-                  <div className="h-13 w-10 overflow-hidden mr-3">
+                  <div className="h-14 w-14 overflow-hidden mr-3">
                     <img
-                      src="./images/Logo.png"
-                      alt="Anand Infra Logo"
-                      className="h-full w-full object-contain"
+                      src="/images/Logo.png"
+                      alt="Anand Realtyy"
+                      className="w-full h-full object-contain rounded-full border-2  border-orange-200"
                     />
                   </div>
 
@@ -147,10 +147,10 @@ const Footer = () => {
                 </div>
               </div>
               <p className="text-white mb-4 text-sm sm:text-sm leading-relaxed">
-  Creating meaningful, impactful, and high-quality cinematic content
-  that blends creativity with purpose. We craft films that entertain,
-  inspire, and carry strong social messages.
-</p>
+                Creating meaningful, impactful, and high-quality cinematic content
+                that blends creativity with purpose. We craft films that entertain,
+                inspire, and carry strong social messages.
+              </p>
 
               <div className="social-links flex items-center space-x-3">
                 {[
@@ -218,7 +218,7 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <i className="fas fa-envelope text-sunrise-gold" />
-                  <span className="text-gray-300">info@anandcinemaz.com</span>
+                  <span className="text-gray-300">info@anandgroup.org</span>
                 </div>
               </div>
             </div>

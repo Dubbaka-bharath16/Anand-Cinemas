@@ -58,7 +58,7 @@ const Contact = () => {
     {
       icon: 'map-marker-alt',
       title: 'Studio Address',
-      content: 'Film City Complex, Studio 7B, Mumbai, India 400053',
+      content: 'H.No. 131/A, 2nd Floor, MLA Colony,Beside Vamsiram Banjara Abodes,Road No.12, Lane 14, Banjara Hills, Hyderabad.',
       link: '#'
     },
     {
@@ -70,8 +70,8 @@ const Contact = () => {
     {
       icon: 'envelope',
       title: 'Email',
-      content: 'projects@anandcinemaz.com',
-      link: 'mailto:projects@anandcinemaz.com'
+      content: 'info@anandgroup.org',
+      link: 'mailto:info@anandgroup.org'
     },
     {
       icon: 'clock',
@@ -560,22 +560,22 @@ const Contact = () => {
                 </h3>
                 <p className="text-gray-600 text-sm md:text-base">
                   H.No. 131/A, 2nd Floor, MLA Colony,
-Beside Vamsiram Banjara Abodes,
-Road No.12, Lane 14, Banjara Hills,
-Hyderabad-500034.
+                  Beside Vamsiram Banjara Abodes,
+                  Road No.12, Lane 14, Banjara Hills,
+                  Hyderabad-500034.
                 </p>
               </div>
               <div className="w-full">
                 <iframe
-  title="Vamsiram's Banjara Abode Location"
-  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.8488578702676!2d78.42583077487482!3d17.407732777757973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb96d8c5f1fa2d%3A0x674842b413d80c4e!2sVamsiram's%20Banjara%20Abode!5e0!3m2!1sen!2sin!4v1734567800000"
-  width="100%"
-  height="250"
-  style={{ border: 0 }}
-  allowFullScreen=""
-  loading="lazy"
-  referrerPolicy="no-referrer-when-downgrade"
-></iframe>
+                  title="Vamsiram's Banjara Abode Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.8488578702676!2d78.42583077487482!3d17.407732777757973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb96d8c5f1fa2d%3A0x674842b413d80c4e!2sVamsiram's%20Banjara%20Abode!5e0!3m2!1sen!2sin!4v1734567800000"
+                  width="100%"
+                  height="250"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
               </div>
             </motion.div>
           </motion.div>
