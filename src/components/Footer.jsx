@@ -121,19 +121,19 @@ const Footer = () => {
               <div className="flex items-center space-x-3 mb-3">
                 {/* Founder Logo */}
                 <div className="flex items-center sm:mr-0">
-                  <div className="h-14 w-14 rounded-full shadow-lg border-2 border-orange-300 overflow-hidden mr-3">
+                  {/* <div className="h-14 w-14 rounded-full shadow-lg border-2 border-orange-300 overflow-hidden mr-3">
                     <img
                       src="./images/CEO.png"
                       alt="Anand Infra CEO"
                       className="h-full w-full object-cover object-top transition-transform duration-300 hover:scale-110"
                     />
-                  </div>
+                  </div> */}
 
                   {/* Company Logo */}
                   <div className="h-14 w-14 overflow-hidden mr-3">
                     <img
                       src="/images/Logo.png"
-                      alt="Anand Realtyy"
+                      alt="Anand cinemas"
                       className="w-full h-full object-contain rounded-full border-2  border-orange-200"
                     />
                   </div>
