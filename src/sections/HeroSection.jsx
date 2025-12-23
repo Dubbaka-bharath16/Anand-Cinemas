@@ -344,7 +344,7 @@ const HeroNestedCarousel = () => {
 
                     {/* Responsive Buttons */}
                     <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 justify-center lg:justify-start">
-                      <Link to="/projects" className="w-full sm:w-auto">
+                      <Link to="/gallery" className="w-full sm:w-auto">
                         <motion.button 
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}

@@ -114,21 +114,13 @@ const Footer = () => {
     <>
       <footer className="light-navy text-white pt-10 pb-6">
         <div className="container mx-auto px-4">
-          {/* Top grid: now 3 columns instead of 4 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 mb-8">
+          {/* Top grid: now 4 columns */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-8">
 
+            {/* Column 1: About Section */}
             <div className="footer-about">
               <div className="flex items-center space-x-3 mb-3">
-                {/* Founder Logo */}
                 <div className="flex items-center sm:mr-0">
-                  {/* <div className="h-14 w-14 rounded-full shadow-lg border-2 border-orange-300 overflow-hidden mr-3">
-                    <img
-                      src="./images/CEO.png"
-                      alt="Anand Infra CEO"
-                      className="h-full w-full object-cover object-top transition-transform duration-300 hover:scale-110"
-                    />
-                  </div> */}
-
                   {/* Company Logo */}
                   <div className="h-14 w-14 overflow-hidden mr-3">
                     <img
@@ -147,34 +139,14 @@ const Footer = () => {
                 </div>
               </div>
               <p className="text-white mb-4 text-sm sm:text-sm leading-relaxed">
-                Creating meaningful, impactful, and high-quality cinematic content
-                that blends creativity with purpose. We craft films that entertain,
-                inspire, and carry strong social messages.
+                Creating meaningful, impactful, and high quality cinematic content that blends creativity with purpose.
+                We produce films that entertain, inspire, and convey strong social messages.
+                Our focus remains on artistic integrity and modern storytelling that connects with audiences from all backgrounds.
               </p>
-
-              <div className="social-links flex items-center space-x-3">
-                {[
-                  { platform: "facebook-f", url: "#" },
-                  { platform: "twitter", url: "#" },
-                  { platform: "instagram", url: "#" },
-                  { platform: "youtube", url: "#" },
-                ].map((social) => (
-                  <a
-                    key={social.platform}
-                    href={social.url}
-                    aria-label={social.platform}
-                    className="social-link w-10 h-10 sm:w-10 sm:h-10 bg-white bg-opacity-10 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:bg-sunrise-gold hover:text-navy-blue hover:-translate-y-1"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <i className={`fab fa-${social.platform}`} />
-                  </a>
-                ))}
-              </div>
             </div>
 
-            {/* Quick Links - Now takes more space */}
-            <div className="footer-links ml-0 md:ml-8 lg:ml-0">
+            {/* Column 2: Quick Links */}
+            <div className="footer-links">
               <h3 className="text-white text-lg sm:text-xl font-bold mb-4">
                 Quick Links
               </h3>
@@ -182,7 +154,6 @@ const Footer = () => {
                 {[
                   { path: "/", label: "Home" },
                   { path: "/about", label: "About" },
-                  // { path: "/projects", label: "Projects" },
                   { path: "/gallery", label: "Gallery" },
                   { path: "/contact", label: "Contact" },
                 ].map((link) => (
@@ -198,12 +169,12 @@ const Footer = () => {
               </ul>
             </div>
 
-            {/* Contact & Legal - Now takes the space where Our Films was */}
+            {/* Column 3: Contact Details */}
             <div className="footer-links">
               <h3 className="text-white text-lg sm:text-xl font-bold mb-4">
-                Connect
+                Contact
               </h3>
-              <div className="space-y-3 mb-6 text-sm">
+              <div className="space-y-3 text-sm">
                 <div className="flex items-start space-x-3">
                   <i className="fas fa-map-marker-alt text-sunrise-gold mt-1" />
                   <span className="text-gray-300">
@@ -220,6 +191,32 @@ const Footer = () => {
                   <i className="fas fa-envelope text-sunrise-gold" />
                   <span className="text-gray-300">info@anandgroup.org</span>
                 </div>
+              </div>
+            </div>
+
+            {/* Column 4: Connect With Us - TOP SECTION */}
+            <div className="footer-links">
+              <h3 className="text-white text-lg sm:text-xl font-bold mb-4 mr-2">
+                Connect With Us
+              </h3>
+              <div className="flex space-x-3 mb-8">
+                {[
+                  { platform: "facebook-f", url: "#" },
+                  { platform: "x", url: "#" },
+                  { platform: "instagram", url: "#" },
+                  { platform: "youtube", url: "#" },
+                ].map((social) => (
+                  <a
+                    key={social.platform}
+                    href={social.url}
+                    aria-label={social.platform}
+                    className="social-link w-10 h-10 sm:w-10 sm:h-10 bg-white bg-opacity-10 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:bg-sunrise-gold hover:text-navy-blue hover:-translate-y-1"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i className={`fab fa-${social.platform}`} />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
