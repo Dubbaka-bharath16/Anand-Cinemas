@@ -123,12 +123,12 @@ const Footer = () => {
                 <div className="flex items-center sm:mr-0">
                   {/* Company Logo */}
                   <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white flex items-center justify-center overflow-hidden shadow-md flex-shrink-0">
-  <img
-    src="/images/Logo.png"
-    alt="Anand Cinemaz"
-    className="w-[70%] h-[70%] object-contain"
-  />
-</div>
+                    <img
+                      src="/images/Logo.png"
+                      alt="Anand Cinemaz"
+                      className="w-[70%] h-[70%] object-contain"
+                    />
+                  </div>
 
 
                   <Link to="/" className=" hover:opacity-90 transition-opacity duration-300 ml-2">
@@ -200,10 +200,11 @@ const Footer = () => {
               <h3 className="text-white text-lg sm:text-xl font-bold mb-4 mr-2">
                 Connect With Us
               </h3>
+
               <div className="flex space-x-3 mb-8">
                 {[
                   { platform: "facebook-f", url: "#" },
-                  { platform: "x", url: "#" },
+                  { platform: "x-twitter", url: "#" }, // ✅ X
                   { platform: "instagram", url: "#" },
                   { platform: "youtube", url: "#" },
                 ].map((social) => (
@@ -211,15 +212,19 @@ const Footer = () => {
                     key={social.platform}
                     href={social.url}
                     aria-label={social.platform}
-                    className="social-link w-10 h-10 sm:w-10 sm:h-10 bg-white bg-opacity-10 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:bg-sunrise-gold hover:text-navy-blue hover:-translate-y-1"
+                    className="social-link w-10 h-10 bg-white bg-opacity-10 text-white 
+                   rounded-full flex items-center justify-center 
+                   transition-all duration-300 
+                   hover:bg-sunrise-gold hover:text-navy-blue hover:-translate-y-1"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <i className={`fab fa-${social.platform}`} />
+                    <i className={`fa-brands fa-${social.platform}`} />
                   </a>
                 ))}
               </div>
             </div>
+
           </div>
 
           {/* Copyright & Legal & Developed by */}
@@ -227,7 +232,7 @@ const Footer = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4">
 
               {/* LEFT */}
-              <p className="text-gray-400 text-sm text-center md:text-left">
+              <p className="text-white text-sm text-center md:text-left">
                 &copy; {currentYear} Anand Cinemaz Studios. All rights reserved.
               </p>
 
@@ -235,7 +240,7 @@ const Footer = () => {
               <div className="flex justify-center items-center gap-4 text-sm">
                 <button
                   onClick={() => openModal("privacy")}
-                  className="text-gray-400 hover:text-sunrise-gold transition-colors duration-200 bg-transparent border-none"
+                  className="text-white hover:text-sunrise-gold transition-colors duration-200 bg-transparent border-none"
                 >
                   Privacy Policy
                 </button>
@@ -244,7 +249,7 @@ const Footer = () => {
 
                 <button
                   onClick={() => openModal("terms")}
-                  className="text-gray-400 hover:text-sunrise-gold transition-colors duration-200 bg-transparent border-none"
+                  className="text-white hover:text-sunrise-gold transition-colors duration-200 bg-transparent border-none"
                 >
                   Terms
                 </button>
@@ -253,14 +258,14 @@ const Footer = () => {
 
                 <button
                   onClick={() => openModal("copyright")}
-                  className="text-gray-400 hover:text-sunrise-gold transition-colors duration-200 bg-transparent border-none"
+                  className="text-white hover:text-sunrise-gold transition-colors duration-200 bg-transparent border-none"
                 >
                   Copyright
                 </button>
               </div>
 
               {/* RIGHT */}
-              <p className="text-gray-400 text-sm text-center md:text-right">
+              <p className="text-white text-sm text-center md:text-right">
                 Designed by{" "}
                 <a
                   href="https://designcareermetrics.com/"
