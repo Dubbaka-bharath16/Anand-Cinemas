@@ -122,17 +122,18 @@ const Footer = () => {
               <div className="flex items-center space-x-3 mb-3">
                 <div className="flex items-center sm:mr-0">
                   {/* Company Logo */}
-                  <div className="h-14 w-14 overflow-hidden mr-3">
-                    <img
-                      src="/images/Logo.png"
-                      alt="Anand cinemas"
-                      className="w-full h-full object-contain rounded-full border-2  border-orange-200"
-                    />
-                  </div>
+                  <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white flex items-center justify-center overflow-hidden shadow-md flex-shrink-0">
+  <img
+    src="/images/Logo.png"
+    alt="Anand Cinemaz"
+    className="w-[70%] h-[70%] object-contain"
+  />
+</div>
 
-                  <Link to="/" className=" hover:opacity-90 transition-opacity duration-300">
+
+                  <Link to="/" className=" hover:opacity-90 transition-opacity duration-300 ml-2">
                     <div>
-                      <span className="sm:text-md lg:text-lg font-bold"><span className='text-amber-500'>ANAND</span> CINEMAZ</span>
+                      <span className="sm:text-md lg:text-lg font-bold "><span className='text-amber-500'>ANAND</span> CINEMAZ</span>
                       <p className="text-gray-300 text-[10px] italic -mt-0.5">"Dharmo Rakshati Rakshitah"</p>
                     </div>
                   </Link>
